@@ -242,7 +242,7 @@
   }
   .hero-right-grid {
     position: absolute;
-    inset: 0;
+    inset: 80px 0 0 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -694,7 +694,9 @@
   @media (max-width: 560px) {
     .hero-badges { gap: 16px; }
     .products-grid { grid-template-columns: 1fr; }
-    .hero-actions { flex-direction: column; align-items: flex-start; }
+    .hero-actions { flex-direction: column; align-items: center; }
+    .btn-primary { width: 100%; justify-content: center; font-size: 17px; padding: 22px 32px; }
+    .btn-secondary { align-self: center; }
   }
 </style>
 </head>
@@ -703,7 +705,7 @@
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <img src="LOGOTIPO_PRINCIPAL-3_150x-100-1.jpg" alt="Amor Doce">
+    <img src="imgs/logo.jpg" alt="Amor Doce">
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#sobre">Sobre</a></li>
@@ -739,13 +741,13 @@
   <div class="hero-right">
     <div class="hero-right-grid">
       <div class="hero-img tall">
-        <img src="20260523_103729.jpg" alt="Bolo Oh Baby">
+        <img src="imgs/20260523_103729.jpg" alt="Bolo Oh Baby">
       </div>
       <div class="hero-img">
-        <img src="20260211_135217.jpg" alt="Kit bolo e brigadeiros">
+        <img src="imgs/20260211_135217.jpg" alt="Kit bolo e brigadeiros">
       </div>
       <div class="hero-img">
-        <img src="20260520_155500.jpg" alt="Bolo Happy Birthday">
+        <img src="imgs/20260520_155500.jpg" alt="Bolo Happy Birthday">
       </div>
     </div>
     <div class="hero-overlay"></div>
@@ -755,7 +757,7 @@
 <!-- ABOUT -->
 <section class="about" id="sobre">
   <div class="about-img">
-    <img src="20260430_142035.jpg" alt="Bolo buttercream Amor Doce" style="width:100%;height:100%;object-fit:cover;">
+    <img src="imgs/20260430_142035.jpg" alt="Bolo buttercream Amor Doce" style="width:100%;height:100%;object-fit:cover;">
   </div>
   <div class="about-content reveal">
     <p class="section-tag">Nossa história</p>
@@ -808,7 +810,7 @@
   <div class="products-grid">
     <div class="product-card featured reveal">
       <div class="product-card-img">
-        <img src="20251129_130956.jpg" alt="Bolo Mãe">
+        <img src="imgs/20251129_130956.jpg" alt="Bolo Mãe">
       </div>
       <div class="product-card-body">
         <span class="product-card-tag">Destaque</span>
@@ -819,7 +821,7 @@
 
     <div class="product-card reveal">
       <div class="product-card-img">
-        <img src="20260211_135217.jpg" alt="Kit bolo + brigadeiros">
+        <img src="imgs/20260211_135217.jpg" alt="Kit bolo + brigadeiros">
       </div>
       <div class="product-card-body">
         <span class="product-card-tag">Kit especial</span>
@@ -830,7 +832,7 @@
 
     <div class="product-card reveal">
       <div class="product-card-img">
-        <img src="20251001_111252.jpg" alt="Brigadeiros gourmet">
+        <img src="imgs/20251001_111252.jpg" alt="Brigadeiros gourmet">
       </div>
       <div class="product-card-body">
         <span class="product-card-tag">Brigadeiros</span>
@@ -841,7 +843,7 @@
 
     <div class="product-card reveal">
       <div class="product-card-img">
-        <img src="20260305_164356.jpg" alt="Bolo floral">
+        <img src="imgs/20260305_164356.jpg" alt="Bolo floral">
       </div>
       <div class="product-card-body">
         <span class="product-card-tag">Personalizados</span>
@@ -852,7 +854,7 @@
 
     <div class="product-card reveal">
       <div class="product-card-img">
-        <img src="20260429_133302.jpg" alt="Torta brigadeiro">
+        <img src="imgs/20260429_133302.jpg" alt="Torta brigadeiro">
       </div>
       <div class="product-card-body">
         <span class="product-card-tag">Sobremesas</span>
@@ -866,19 +868,19 @@
 <!-- GALLERY ROW -->
 <div class="gallery-row" style="margin: 0 72px 80px; border-radius: 20px; overflow:hidden;">
   <div class="gallery-row-item">
-    <img src="20260521_115131.jpg" alt="Bolo Hello 34">
+    <img src="imgs/20260521_115131.jpg" alt="Bolo Hello 34">
   </div>
   <div class="gallery-row-item">
-    <img src="20260513_173622.jpg" alt="Bolo Advogada">
+    <img src="imgs/20260513_173622.jpg" alt="Bolo Advogada">
   </div>
   <div class="gallery-row-item">
-    <img src="20260523_124538.jpg" alt="Bolo Guri ou Guriá">
+    <img src="imgs/20260523_124538.jpg" alt="Bolo Guri ou Guriá">
   </div>
   <div class="gallery-row-item">
-    <img src="20260502_172149.jpg" alt="Bolo dia dos pais">
+    <img src="imgs/20260502_172149.jpg" alt="Bolo dia dos pais">
   </div>
   <div class="gallery-row-item">
-    <img src="20260505_150045.jpg" alt="Brownies">
+    <img src="imgs/20260505_150045.jpg" alt="Brownies">
   </div>
 </div>
 
@@ -956,9 +958,9 @@
   </div>
 
   <div class="loja-imgs">
-    <img src="20260430_134825.jpg" alt="Interior da loja">
-    <img src="20260430_142035.jpg" alt="Bolo na loja">
-    <img src="20260220_120624.jpg" alt="Vitrine">
+    <img src="imgs/20260430_134825.jpg" alt="Interior da loja">
+    <img src="imgs/20260430_142035.jpg" alt="Bolo na loja">
+    <img src="imgs/20260220_120624.jpg" alt="Vitrine">
   </div>
 </section>
 
@@ -1044,7 +1046,7 @@
 <!-- FOOTER -->
 <footer>
   <div>
-    <div class="footer-logo"><img src="LOGOTIPO_PRINCIPAL-3_150x-100-1.jpg" alt="Amor Doce"></div>
+    <div class="footer-logo"><img src="imgs/logo.jpg" alt="Amor Doce"></div>
     <p class="footer-desc">Confeitaria artesanal em Balneário Camboriú. Feito com amor, chocolate belga e ingredientes frescos.</p>
   </div>
   <div>
