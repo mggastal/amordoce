@@ -52,7 +52,6 @@
   .nav-logo img {
     height: 68px;
     object-fit: contain;
-    mix-blend-mode: multiply;
   }
   .nav-links {
     display: flex;
@@ -271,17 +270,20 @@
   /* ─── ABOUT ─── */
   .about {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 80vh;
+    grid-template-columns: 30% 1fr;
+    min-height: 60vh;
+    max-height: 700px;
     background: var(--pink-pale);
   }
   .about-img {
     position: relative;
     overflow: hidden;
+    max-height: 700px;
   }
   .about-img img {
     width: 100%; height: 100%;
     object-fit: cover;
+    object-position: center top;
   }
   .about-content {
     padding: 96px 72px;
@@ -410,25 +412,50 @@
   .product-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--brown); margin-bottom: 6px; }
   .product-card p { font-size: 13.5px; font-weight: 600; color: var(--muted); line-height: 1.7; }
 
-  /* ─── GALLERY ROW ─── */
-  .gallery-row {
+  /* ─── CARROSSEL ─── */
+  .carousel-wrap {
+    width: 100%;
+    overflow: hidden;
+    margin: 0 0 80px;
+    padding: 8px 0;
+    cursor: grab;
+  }
+  .carousel-wrap:active { cursor: grabbing; }
+  .carousel-track {
     display: flex;
-    gap: 8px;
-    overflow: hidden;
-    height: 380px;
+    gap: 12px;
+    width: max-content;
+    animation: carousel-scroll 28s linear infinite;
   }
-  .gallery-row-item {
-    flex: 1;
+  .carousel-wrap:hover .carousel-track { animation-play-state: paused; }
+  .carousel-item {
+    width: 280px;
+    height: 360px;
+    border-radius: 20px;
     overflow: hidden;
-    border-radius: 16px;
-    position: relative;
+    flex-shrink: 0;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .gallery-row-item img {
+  .carousel-item:hover {
+    transform: scale(1.03) translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+  }
+  .carousel-item img {
     width: 100%; height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
   }
-  .gallery-row-item:hover img { transform: scale(1.05); }
+  @keyframes carousel-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @media (max-width: 900px) {
+    .carousel-item { width: 220px; height: 280px; }
+    .carousel-track { gap: 10px; animation-duration: 22s; }
+    .carousel-wrap { margin: 0 0 60px; }
+  }
 
   /* ─── LOJA ─── */
   .loja {
@@ -472,19 +499,18 @@
     gap: 10px;
     border-radius: 20px;
     overflow: hidden;
+    max-height: 420px;
   }
   .loja-imgs img {
     width: 100%;
-    aspect-ratio: 3/4;
+    height: 200px;
     object-fit: cover;
     transition: transform 0.4s;
   }
   .loja-imgs img:hover { transform: scale(1.03); }
   .loja-imgs img:first-child {
     grid-row: span 2;
-    aspect-ratio: auto;
     height: 100%;
-    max-height: 520px;
   }
 
   /* ─── TESTIMONIAL / SOCIAL PROOF ─── */
@@ -582,7 +608,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 48px;
   }
-  .footer-logo img { height: 80px; margin-bottom: 16px; mix-blend-mode: screen; opacity: 0.95; }
+  .footer-logo img { height: 80px; margin-bottom: 16px; }
   .footer-desc { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.45); line-height: 1.8; }
 
   footer h4 {
@@ -679,7 +705,6 @@
     .products-grid { grid-template-columns: 1fr 1fr; }
     .product-card.featured { grid-row: span 1; }
 
-    .gallery-row { height: 200px; }
 
     .loja { grid-template-columns: 1fr; padding: 72px 28px; gap: 40px; }
     .loja-imgs { display: none; }
@@ -833,7 +858,7 @@
 
     <div class="product-card reveal">
       <div class="product-card-img">
-        <img src="imgs/20251001_111252.jpg" alt="Brigadeiros gourmet">
+        <img src="imgs/20260429_133302.jpg" alt="Brigadeiros gourmet">
       </div>
       <div class="product-card-body">
         <span class="product-card-tag">Brigadeiros</span>
@@ -855,7 +880,7 @@
 
     <div class="product-card reveal">
       <div class="product-card-img">
-        <img src="imgs/20260429_133302.jpg" alt="Torta brigadeiro">
+        <img src="imgs/20251001_111252.jpg" alt="Torta brigadeiro">
       </div>
       <div class="product-card-body">
         <span class="product-card-tag">Sobremesas</span>
@@ -867,23 +892,28 @@
 </section>
 
 <!-- GALLERY ROW -->
-<div class="gallery-row" style="margin: 0 72px 80px; border-radius: 20px; overflow:hidden;">
-  <div class="gallery-row-item">
-    <img src="imgs/20260521_115131.jpg" alt="Bolo Hello 34">
-  </div>
-  <div class="gallery-row-item">
-    <img src="imgs/20260513_173622.jpg" alt="Bolo Advogada">
-  </div>
-  <div class="gallery-row-item">
-    <img src="imgs/20260523_124538.jpg" alt="Bolo Guri ou Guriá">
-  </div>
-  <div class="gallery-row-item">
-    <img src="imgs/20260502_172149.jpg" alt="Bolo dia dos pais">
-  </div>
-  <div class="gallery-row-item">
-    <img src="imgs/20260505_150045.jpg" alt="Brownies">
+<!-- CARROSSEL -->
+<div class="carousel-wrap">
+  <div class="carousel-track">
+    <!-- set duplicado para loop infinito -->
+    <div class="carousel-item"><img src="imgs/20260521_115131.jpg" alt="Bolo Hello 34"></div>
+    <div class="carousel-item"><img src="imgs/20260513_173622.jpg" alt="Bolo Advogada"></div>
+    <div class="carousel-item"><img src="imgs/20260523_124538.jpg" alt="Bolo Guri ou Guriá"></div>
+    <div class="carousel-item"><img src="imgs/20260502_172149.jpg" alt="Bolo dia dos pais"></div>
+    <div class="carousel-item"><img src="imgs/20260505_150045.jpg" alt="Brownies"></div>
+    <div class="carousel-item"><img src="imgs/20260523_103729.jpg" alt="Bolo Oh Baby"></div>
+    <div class="carousel-item"><img src="imgs/20251129_130956.jpg" alt="Bolo Mãe"></div>
+    <!-- duplicatas para loop contínuo -->
+    <div class="carousel-item"><img src="imgs/20260521_115131.jpg" alt="Bolo Hello 34"></div>
+    <div class="carousel-item"><img src="imgs/20260513_173622.jpg" alt="Bolo Advogada"></div>
+    <div class="carousel-item"><img src="imgs/20260523_124538.jpg" alt="Bolo Guri ou Guriá"></div>
+    <div class="carousel-item"><img src="imgs/20260502_172149.jpg" alt="Bolo dia dos pais"></div>
+    <div class="carousel-item"><img src="imgs/20260505_150045.jpg" alt="Brownies"></div>
+    <div class="carousel-item"><img src="imgs/20260523_103729.jpg" alt="Bolo Oh Baby"></div>
+    <div class="carousel-item"><img src="imgs/20251129_130956.jpg" alt="Bolo Mãe"></div>
   </div>
 </div>
+
 
 <!-- HORÁRIOS + MAPA -->
 <div style="background:var(--pink-pale);">
