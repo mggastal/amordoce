@@ -50,8 +50,9 @@
     box-shadow: 0 1px 0 var(--border);
   }
   .nav-logo img {
-    height: 48px;
+    height: 68px;
     object-fit: contain;
+    mix-blend-mode: multiply;
   }
   .nav-links {
     display: flex;
@@ -581,7 +582,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 48px;
   }
-  .footer-logo img { height: 52px; margin-bottom: 16px; filter: brightness(0) invert(1); opacity: 0.85; }
+  .footer-logo img { height: 80px; margin-bottom: 16px; mix-blend-mode: screen; opacity: 0.95; }
   .footer-desc { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.45); line-height: 1.8; }
 
   footer h4 {
@@ -705,7 +706,7 @@
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <img src="imgs/logo.jpg" alt="Amor Doce">
+    <img src="imgs/logo.png" alt="Amor Doce">
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#sobre">Sobre</a></li>
@@ -1046,7 +1047,7 @@
 <!-- FOOTER -->
 <footer>
   <div>
-    <div class="footer-logo"><img src="imgs/logo.jpg" alt="Amor Doce"></div>
+    <div class="footer-logo"><img src="imgs/logo.png" alt="Amor Doce"></div>
     <p class="footer-desc">Confeitaria artesanal em Balneário Camboriú. Feito com amor, chocolate belga e ingredientes frescos.</p>
   </div>
   <div>
