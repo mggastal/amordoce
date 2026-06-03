@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amor Doce | Confeitaria em Balneário Camboriú</title>
+<meta name="description" content="Bolos em Buttercream, brigadeiros gourmet e doces artesanais em Balneário Camboriú. Encomende pelo WhatsApp!">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink:       #E8A0B0;
+    --pink-deep:  #C96E88;
+    --pink-pale:  #FDF0F3;
+    --pink-light: #F9E0E7;
+    --green:      #6BAF7A;
+    --cream:      #FDF8F5;
+    --warm-white: #FFFCFA;
+    --brown:      #5C3D2E;
+    --text:       #2E1F1A;
+    --muted:      #9A7B72;
+    --white:      #FFFFFF;
+    --border:     rgba(232,160,176,0.25);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--warm-white);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(253,248,245,0.95);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 var(--border);
+  }
+  .nav-logo img {
+    height: 48px;
+    object-fit: contain;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brown);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--pink-deep); }
+  .nav-cta {
+    background: var(--pink-deep);
+    color: white !important;
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.1em !important;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.15s ease !important;
+  }
+  .nav-cta:hover { background: var(--brown) !important; transform: translateY(-1px); }
+
+  /* hamburger */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--brown); border-radius: 2px; transition: all 0.3s; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 64px 80px 72px;
+    position: relative;
+    z-index: 2;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(232,160,176,0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 80%, rgba(212,116,140,0.12) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(249,224,231,0.18) 0%, transparent 70%),
+      #FFFCFA;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--pink-deep);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.2s forwards;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block; width: 28px; height: 1px;
+    background: var(--pink-deep);
+  }
+
+  .hero-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    font-weight: 900;
+    color: var(--brown);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.35s forwards;
+  }
+  .hero-h1 em {
+    font-style: italic;
+    color: var(--pink-deep);
+    font-weight: 900;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 380px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.65s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #D4607A 0%, #C96E88 55%, #B85878 100%);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 10px 32px rgba(201,110,136,0.45), inset 0 1px 0 rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    transition: left 0.5s ease;
+  }
+  .btn-primary:hover::before { left: 150%; }
+  .btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 18px 44px rgba(201,110,136,0.55), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--brown);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-secondary:hover { color: var(--pink-deep); border-color: var(--pink-deep); }
+
+  .hero-badges {
+    display: flex;
+    gap: 24px;
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+  .hero-badge { text-align: center; }
+  .hero-badge-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--pink-deep);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hero-badge-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-right-grid {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 6px;
+  }
+  .hero-img {
+    overflow: hidden;
+  }
+  .hero-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .hero-img:hover img { transform: scale(1.04); }
+  .hero-img.tall { grid-row: span 2; }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--warm-white) 0%, transparent 8%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ─── ABOUT ─── */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 80vh;
+    background: var(--pink-pale);
+  }
+  .about-img {
+    position: relative;
+    overflow: hidden;
+  }
+  .about-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .about-content {
+    padding: 96px 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .section-tag {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--pink-deep);
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 900;
+    color: var(--brown);
+    line-height: 1.15;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+  .section-title em { font-style: italic; color: var(--pink-deep); }
+  .section-body {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--muted);
+    line-height: 1.85;
+    max-width: 440px;
+  }
+
+  .about-features {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .about-feat {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .about-feat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--pink-deep);
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+  .about-feat-text strong { display: block; font-size: 14px; font-weight: 800; color: var(--brown); margin-bottom: 2px; }
+  .about-feat-text span { font-size: 12px; font-weight: 600; color: var(--muted); }
+
+  /* ─── PRODUCTS ─── */
+  .products {
+    padding: 112px 72px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .products-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: end;
+    margin-bottom: 64px;
+  }
+  .products-header .section-body { max-width: 100%; }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .product-card {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    background: var(--white);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+  }
+  .product-card.featured {
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-card.featured .product-card-img {
+    flex: 1;
+    aspect-ratio: auto;
+    min-height: 0;
+  }
+
+  .product-card-img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+  }
+  .product-card-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .product-card:hover .product-card-img img { transform: scale(1.06); }
+
+  .product-card-body {
+    padding: 16px 24px 20px;
+  }
+  .product-card-tag {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pink-deep);
+    background: var(--pink-light);
+    padding: 4px 10px;
+    border-radius: 100px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .product-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--brown); margin-bottom: 6px; }
+  .product-card p { font-size: 13.5px; font-weight: 600; color: var(--muted); line-height: 1.7; }
+
+  /* ─── GALLERY ROW ─── */
+  .gallery-row {
+    display: flex;
+    gap: 8px;
+    overflow: hidden;
+    height: 380px;
+  }
+  .gallery-row-item {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 16px;
+    position: relative;
+  }
+  .gallery-row-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .gallery-row-item:hover img { transform: scale(1.05); }
+
+  /* ─── LOJA ─── */
+  .loja {
+    padding: 112px 72px;
+    background: var(--brown);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .loja-content .section-tag { color: var(--pink); }
+  .loja-content .section-title { color: var(--white); }
+  .loja-content .section-title em { color: var(--pink); }
+  .loja-content .section-body { color: rgba(255,255,255,0.55); }
+
+  .loja-infos {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .loja-info {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .loja-info-ico {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: rgba(232,160,176,0.15);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .loja-info-ico svg { stroke: var(--pink); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .loja-info-text strong { display: block; font-size: 14px; font-weight: 800; color: var(--white); margin-bottom: 2px; }
+  .loja-info-text span { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.5); }
+
+  .loja-imgs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .loja-imgs img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+  .loja-imgs img:hover { transform: scale(1.03); }
+  .loja-imgs img:first-child {
+    grid-row: span 2;
+    aspect-ratio: auto;
+    height: 100%;
+    max-height: 520px;
+  }
+
+  /* ─── TESTIMONIAL / SOCIAL PROOF ─── */
+  .social-proof {
+    padding: 112px 72px;
+    background: var(--pink-pale);
+    text-align: center;
+  }
+  .social-proof .section-title { margin-bottom: 16px; }
+  .social-proof .section-body { margin: 0 auto 64px; }
+
+  .stars {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .stars svg { width: 18px; height: 18px; fill: #F5A623; }
+
+  .proof-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    text-align: left;
+  }
+  .proof-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 32px;
+    border: 1px solid var(--border);
+  }
+  .proof-card-stars {
+    display: flex; gap: 3px; margin-bottom: 16px;
+  }
+  .proof-card-stars svg { width: 14px; height: 14px; fill: #F5A623; }
+  .proof-card p { font-size: 14px; font-weight: 600; color: var(--muted); line-height: 1.75; margin-bottom: 20px; font-style: italic; }
+  .proof-card strong { font-size: 13px; font-weight: 800; color: var(--brown); }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    padding: 120px 72px;
+    text-align: center;
+    background:
+      radial-gradient(ellipse 80% 70% at 20% 20%, rgba(232,160,176,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 60% at 85% 75%, rgba(212,116,140,0.22) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 50% at 50% 50%, rgba(249,224,231,0.25) 0%, transparent 65%),
+      #FDF0F3;
+    position: relative; overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #D4607A 0%, #C96E88 55%, #B85878 100%);
+    color: white;
+    padding: 22px 52px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    box-shadow: 0 12px 40px rgba(201,110,136,0.45), inset 0 1px 0 rgba(255,255,255,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative; overflow: hidden;
+  }
+  .cta-btn::before {
+    content: '';
+    position: absolute; top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    transition: left 0.5s ease;
+  }
+  .cta-btn:hover::before { left: 150%; }
+  .cta-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(201,110,136,0.55), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .cta-note {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--brown);
+    padding: 56px 72px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 48px;
+  }
+  .footer-logo img { height: 52px; margin-bottom: 16px; filter: brightness(0) invert(1); opacity: 0.85; }
+  .footer-desc { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.45); line-height: 1.8; }
+
+  footer h4 {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 20px;
+  }
+  footer ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  footer ul li { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.55); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+  footer ul li svg { flex-shrink: 0; margin-top: 2px; }
+  footer ul a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+  footer ul a:hover { color: var(--pink); }
+
+  .footer-bottom {
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ─── WHATSAPP FLOAT ─── */
+  .wa-float {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    width: 60px; height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+    z-index: 200;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  .wa-float:hover { transform: scale(1.1); box-shadow: 0 12px 32px rgba(37,211,102,0.5); }
+  .wa-float svg { width: 30px; height: 30px; }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 8px 24px rgba(37,211,102,0.4); }
+    50% { box-shadow: 0 8px 36px rgba(37,211,102,0.6); }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--warm-white);
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      z-index: 99;
+    }
+    .nav-links.open a { font-size: 18px; letter-spacing: 0.1em; }
+    .hamburger { display: flex; z-index: 101; }
+
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 100px 28px 60px; }
+    .hero-right { height: 60vw; position: relative; }
+    .hero-right-grid { position: absolute; }
+    .hero-overlay { background: linear-gradient(180deg, transparent 70%, var(--warm-white) 100%); }
+
+    .about { grid-template-columns: 1fr; }
+    .about-img { height: 280px; }
+    .about-content { padding: 56px 28px; }
+    .about-features { grid-template-columns: 1fr; }
+
+    .products { padding: 72px 28px; }
+    .products-header { grid-template-columns: 1fr; gap: 16px; }
+    .products-grid { grid-template-columns: 1fr 1fr; }
+    .product-card.featured { grid-row: span 1; }
+
+    .gallery-row { height: 200px; }
+
+    .loja { grid-template-columns: 1fr; padding: 72px 28px; gap: 40px; }
+    .loja-imgs { display: none; }
+
+    .social-proof { padding: 72px 28px; }
+    .proof-cards { grid-template-columns: 1fr; }
+
+    .cta-section { padding: 80px 28px; }
+    footer { grid-template-columns: 1fr; padding: 56px 28px 40px; gap: 36px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  }
+
+  @media (max-width: 560px) {
+    .hero-badges { gap: 16px; }
+    .products-grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <img src="LOGOTIPO_PRINCIPAL-3_150x-100-1.jpg" alt="Amor Doce">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#produtos">Produtos</a></li>
+    <li><a href="#loja">A Loja</a></li>
+    <li><a href="https://wa.me/message/LTSIEJZTHXZGA1" target="_blank" class="nav-cta">Encomendar</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1rem,1.5vw,1.2rem);color:var(--pink-deep);font-weight:400;margin-bottom:20px;opacity:0;animation:fadeUp 0.7s ease 0.2s forwards;letter-spacing:0.02em;">Confeitaria Artesanal · Balneário Camboriú</p>
+    <h1 class="hero-h1">
+      Feito com <em>amor</em><br>pra adoçar<br>a sua vida
+    </h1>
+
+    <p class="hero-sub">
+      Bolos em Buttercream, brigadeiros gourmet e doces artesanais. Cada encomenda é única, feita com ingredientes de qualidade e muito carinho.
+    </p>
+
+    <div class="hero-actions">
+      <a href="https://wa.me/message/LTSIEJZTHXZGA1" target="_blank" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12.001 2C6.478 2 2 6.478 2 12.001c0 1.788.475 3.47 1.302 4.924L2 22l5.232-1.278A9.947 9.947 0 0012.001 22C17.523 22 22 17.522 22 12.001 22 6.478 17.523 2 12.001 2zm4.994 13.986c-.214.601-1.246 1.147-1.714 1.196-.424.044-.96.063-1.549-.097-.358-.1-.817-.234-1.401-.457-2.458-.961-4.059-3.405-4.184-3.563-.122-.158-.991-1.316-.991-2.509 0-1.194.625-1.782.846-2.026.222-.244.483-.304.644-.304.16 0 .322.001.464.008.148.007.348-.056.545.416.203.486.689 1.677.749 1.8.061.123.1.267.02.43-.08.162-.122.263-.241.405-.12.142-.252.317-.359.424-.12.119-.245.25-.105.49.14.242.622 1.027 1.335 1.664.917.817 1.69 1.069 1.932 1.19.242.12.383.1.524-.06.142-.162.609-.71.77-.954.162-.243.325-.202.547-.122.222.08 1.41.666 1.652.787.243.122.402.182.463.283.06.102.06.588-.154 1.189z"/></svg>
+        Fazer encomenda
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-grid">
+      <div class="hero-img tall">
+        <img src="20260523_103729.jpg" alt="Bolo Oh Baby">
+      </div>
+      <div class="hero-img">
+        <img src="20260211_135217.jpg" alt="Kit bolo e brigadeiros">
+      </div>
+      <div class="hero-img">
+        <img src="20260520_155500.jpg" alt="Bolo Happy Birthday">
+      </div>
+    </div>
+    <div class="hero-overlay"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="sobre">
+  <div class="about-img">
+    <img src="20260430_142035.jpg" alt="Bolo buttercream Amor Doce" style="width:100%;height:100%;object-fit:cover;">
+  </div>
+  <div class="about-content reveal">
+    <p class="section-tag">Nossa história</p>
+    <h2 class="section-title">Doces de <em>qualidade</em><br>para Balneário Camboriú</h2>
+    <p class="section-body">A Amor Doce nasceu da paixão de Ana Luisa pela confeitaria artesanal. Utilizamos chocolate belga e ingredientes frescos em todas as nossas criações — bolos em buttercream, brigadeiros gourmet e sobremesas que contam uma história.</p>
+
+    <div class="about-features">
+      <div class="about-feat">
+        <div class="about-feat-dot"></div>
+        <div class="about-feat-text">
+          <strong>Chocolate Belga</strong>
+          <span>Ingredientes premium em cada receita.</span>
+        </div>
+      </div>
+      <div class="about-feat">
+        <div class="about-feat-dot"></div>
+        <div class="about-feat-text">
+          <strong>Personalizado</strong>
+          <span>Cada bolo é único para a sua ocasião.</span>
+        </div>
+      </div>
+      <div class="about-feat">
+        <div class="about-feat-dot"></div>
+        <div class="about-feat-text">
+          <strong>Loja física</strong>
+          <span>Centro de BC, com opção de delivery.</span>
+        </div>
+      </div>
+      <div class="about-feat">
+        <div class="about-feat-dot"></div>
+        <div class="about-feat-text">
+          <strong>Feito com amor</strong>
+          <span>Cada detalhe pensado com carinho.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="produtos">
+  <div class="products-header reveal">
+    <div>
+      <p class="section-tag">Nossos produtos</p>
+      <h2 class="section-title">Doces que<br>marcam <em>momentos</em></h2>
+    </div>
+    <p class="section-body">Bolos em buttercream para aniversários, brigadeiros para presentear, bentô cakes e muito mais. Tudo feito sob encomenda, do jeito que você imaginar.</p>
+  </div>
+
+  <div class="products-grid">
+    <div class="product-card featured reveal">
+      <div class="product-card-img">
+        <img src="20251129_130956.jpg" alt="Bolo Mãe">
+      </div>
+      <div class="product-card-body">
+        <span class="product-card-tag">Destaque</span>
+        <h3>Bolo em Buttercream</h3>
+        <p>Personalizados para cada ocasião — aniversário, chá de bebê, formatura e muito mais.</p>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-card-img">
+        <img src="20260211_135217.jpg" alt="Kit bolo + brigadeiros">
+      </div>
+      <div class="product-card-body">
+        <span class="product-card-tag">Kit especial</span>
+        <h3>Kit Bolo + Brigadeiros</h3>
+        <p>O presente perfeito: bentô cake com brigadeiros gourmet na mesma caixa.</p>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-card-img">
+        <img src="20251001_111252.jpg" alt="Brigadeiros gourmet">
+      </div>
+      <div class="product-card-body">
+        <span class="product-card-tag">Brigadeiros</span>
+        <h3>Brigadeiros Gourmet</h3>
+        <p>Ferrero, pistache, Ovomaltine, brigadeiro e muito mais — com chocolate belga.</p>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-card-img">
+        <img src="20260305_164356.jpg" alt="Bolo floral">
+      </div>
+      <div class="product-card-body">
+        <span class="product-card-tag">Personalizados</span>
+        <h3>Bolos com Mensagem</h3>
+        <p>Com o desenho e a frase que você quiser — feito à mão no buttercream.</p>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-card-img">
+        <img src="20260429_133302.jpg" alt="Torta brigadeiro">
+      </div>
+      <div class="product-card-body">
+        <span class="product-card-tag">Sobremesas</span>
+        <h3>Tortas e Sobremesas</h3>
+        <p>Torta de brigadeiro com morangos, brownie e outros clássicos na loja.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY ROW -->
+<div class="gallery-row" style="margin: 0 72px 80px; border-radius: 20px; overflow:hidden;">
+  <div class="gallery-row-item">
+    <img src="20260521_115131.jpg" alt="Bolo Hello 34">
+  </div>
+  <div class="gallery-row-item">
+    <img src="20260513_173622.jpg" alt="Bolo Advogada">
+  </div>
+  <div class="gallery-row-item">
+    <img src="20260523_124538.jpg" alt="Bolo Guri ou Guriá">
+  </div>
+  <div class="gallery-row-item">
+    <img src="20260502_172149.jpg" alt="Bolo dia dos pais">
+  </div>
+  <div class="gallery-row-item">
+    <img src="20260505_150045.jpg" alt="Brownies">
+  </div>
+</div>
+
+<!-- HORÁRIOS + MAPA -->
+<div style="background:var(--pink-pale);">
+  <div style="max-width:1300px;margin:0 auto;padding:96px 72px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;" class="horarios-outer">
+    <div class="reveal">
+      <p class="section-tag">Horário de funcionamento</p>
+      <h2 class="section-title">Quando você<br>pode nos <em>visitar</em></h2>
+      <table style="width:100%;border-collapse:collapse;margin-top:28px;">
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:14px 0;font-size:14px;font-weight:700;color:rgba(154,123,114,0.45);">Segunda-feira</td><td style="text-align:right;padding:14px 0;font-size:14px;font-weight:600;color:rgba(154,123,114,0.45);">Fechado</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:14px 0;font-size:14px;font-weight:700;color:var(--brown);">Terça-feira</td><td style="text-align:right;padding:14px 0;font-size:14px;font-weight:600;color:var(--muted);">13:00 – 18:00</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:14px 0;font-size:14px;font-weight:700;color:var(--brown);">Quarta-feira</td><td style="text-align:right;padding:14px 0;font-size:14px;font-weight:600;color:var(--muted);">13:00 – 18:00</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:14px 0;font-size:14px;font-weight:700;color:var(--brown);">Quinta-feira</td><td style="text-align:right;padding:14px 0;font-size:14px;font-weight:600;color:var(--muted);">13:00 – 18:00</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:14px 0;font-size:14px;font-weight:700;color:var(--brown);">Sexta-feira</td><td style="text-align:right;padding:14px 0;font-size:14px;font-weight:600;color:var(--muted);">13:00 – 18:00</td></tr>
+        <tr style="border-bottom:1px solid var(--border);"><td style="padding:14px 0;font-size:14px;font-weight:700;color:var(--brown);">Sábado</td><td style="text-align:right;padding:14px 0;font-size:14px;font-weight:600;color:var(--muted);">Apenas encomendas</td></tr>
+        <tr><td style="padding:14px 0;font-size:14px;font-weight:700;color:rgba(154,123,114,0.45);">Domingo</td><td style="text-align:right;padding:14px 0;font-size:14px;font-weight:600;color:rgba(154,123,114,0.45);">Fechado</td></tr>
+      </table>
+    </div>
+    <div class="reveal" style="background:var(--white);border-radius:24px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.07);">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3557.8!2d-48.6360!3d-26.9930!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xdff33ea6cf85846f!2sAmor%20Doce%20%7C%20Por%20Ana%20Luisa!5e0!3m2!1spt-BR!2sbr!4v1699000000000"
+        width="100%" height="260" style="display:block;border:none;"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Localização Amor Doce">
+      </iframe>
+      <div style="padding:28px 32px;">
+        <h4 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--brown);margin-bottom:10px;">Amor Doce | Por Ana Luisa</h4>
+        <p style="font-size:14px;font-weight:600;color:var(--muted);line-height:1.7;margin-bottom:20px;">Rua 3000, 445 · Centro<br>Balneário Camboriú - SC, 88330-334</p>
+        <a href="https://www.google.com/maps/place/Amor+Doce+%7C+Por+Ana+Luisa/data=!4m2!3m1!1s0x0:0xdff33ea6cf85846f?sa=X&ved=1t:2428&ictx=111" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--pink-deep);color:white;padding:11px 22px;border-radius:100px;font-size:13px;font-weight:800;text-decoration:none;">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Ver no Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOJA FOTOS -->
+<section class="loja" id="loja">
+  <div class="loja-content reveal">
+    <p class="section-tag">Visite a nossa loja</p>
+    <h2 class="section-title">Um espaço feito<br>pra você <em>se sentir<br>em casa</em></h2>
+    <p class="section-body">Nossa loja fica no Centro de BC, com ambiente aconchegante, vitrine cheia de doces frescos e muito carinho no atendimento.</p>
+
+    <div class="loja-infos">
+      <div class="loja-info">
+        <div class="loja-info-ico">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="loja-info-text">
+          <strong>Endereço</strong>
+          <span>Rua 3000, 445 · Centro · Balneário Camboriú - SC</span>
+        </div>
+      </div>
+      <div class="loja-info">
+        <div class="loja-info-ico">
+          <svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="loja-info-text">
+          <strong>Horário de funcionamento</strong>
+          <span>Terça a sexta: 13h às 18h · Sábado: horário especial</span>
+        </div>
+      </div>
+      <div class="loja-info">
+        <div class="loja-info-ico">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.08 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14z"/></svg>
+        </div>
+        <div class="loja-info-text">
+          <strong>WhatsApp</strong>
+          <span>(47) 99148-9325 · Encomendas e dúvidas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="loja-imgs">
+    <img src="20260430_134825.jpg" alt="Interior da loja">
+    <img src="20260430_142035.jpg" alt="Bolo na loja">
+    <img src="20260220_120624.jpg" alt="Vitrine">
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social-proof">
+  <div class="reveal">
+    <p class="section-tag">O que dizem sobre a gente</p>
+    <h2 class="section-title">4,8 ★ no Google</h2>
+    <p class="section-body" style="margin:0 auto 64px;">16 avaliações de clientes reais que amaram cada detalhe.</p>
+  </div>
+
+  <div class="proof-cards">
+    <div class="proof-card reveal">
+      <div class="proof-card-stars">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <p>"Ambiente maravilhoso e doces de alta qualidade. Cada vez que vou me surpreendo com a qualidade e o carinho no atendimento."</p>
+      <strong>Cliente Google</strong>
+    </div>
+    <div class="proof-card reveal">
+      <div class="proof-card-stars">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <p>"Tudo muito saboroso, a empada de palmito é maravilhosa! E os brigadeiros... nunca comi tão bom. Recomendo demais!"</p>
+      <strong>Cliente Google</strong>
+    </div>
+    <div class="proof-card reveal">
+      <div class="proof-card-stars">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <p>"Maravilhosa! Só tem produtos lindos e gostosos ❤ e o atendimento é top!!!! Fiz meu aniversário lá e foi perfeito."</p>
+      <strong>Cliente Google</strong>
+    </div>
+  </div>
+
+  <!-- REDES SOCIAIS -->
+  <div class="reveal" style="margin-top:64px;padding-top:48px;border-top:1px solid var(--border);">
+    <p class="section-tag" style="margin-bottom:16px;">Nos acompanhe nas redes</p>
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+      <a href="https://www.instagram.com/amordocebc/" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:13px 28px;border-radius:100px;font-size:14px;font-weight:800;text-decoration:none;background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);color:white;box-shadow:0 6px 20px rgba(220,39,67,0.3);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="white"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="2"/></svg>
+        @amordocebc
+      </a>
+      <a href="https://www.facebook.com/amordocebcsc/" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:13px 28px;border-radius:100px;font-size:14px;font-weight:800;text-decoration:none;background:#1877F2;color:white;box-shadow:0 6px 20px rgba(24,119,242,0.3);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        Amor Doce BC
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="reveal" style="position:relative;">
+    <p class="section-tag" style="display:inline-block;margin-bottom:20px;">Pronta para encomendar?</p>
+    <h2 class="section-title" style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.2rem);font-weight:900;color:var(--brown);margin-bottom:20px;letter-spacing:-0.02em;">
+      Fala com a gente<br>pelo <em>WhatsApp</em>
+    </h2>
+    <p class="section-body" style="margin:0 auto 48px;max-width:440px;font-size:16px;font-weight:600;color:var(--muted);line-height:1.8;">
+      Respondemos rapidinho e te ajudamos a criar o bolo perfeito para a sua ocasião especial.
+    </p>
+    <a href="https://wa.me/message/LTSIEJZTHXZGA1" target="_blank" class="cta-btn">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M12.001 2C6.478 2 2 6.478 2 12.001c0 1.788.475 3.47 1.302 4.924L2 22l5.232-1.278A9.947 9.947 0 0012.001 22C17.523 22 22 17.522 22 12.001 22 6.478 17.523 2 12.001 2zm4.994 13.986c-.214.601-1.246 1.147-1.714 1.196-.424.044-.96.063-1.549-.097-.358-.1-.817-.234-1.401-.457-2.458-.961-4.059-3.405-4.184-3.563-.122-.158-.991-1.316-.991-2.509 0-1.194.625-1.782.846-2.026.222-.244.483-.304.644-.304.16 0 .322.001.464.008.148.007.348-.056.545.416.203.486.689 1.677.749 1.8.061.123.1.267.02.43-.08.162-.122.263-.241.405-.12.142-.252.317-.359.424-.12.119-.245.25-.105.49.14.242.622 1.027 1.335 1.664.917.817 1.69 1.069 1.932 1.19.242.12.383.1.524-.06.142-.162.609-.71.77-.954.162-.243.325-.202.547-.122.222.08 1.41.666 1.652.787.243.122.402.182.463.283.06.102.06.588-.154 1.189z"/></svg>
+      Quero fazer minha encomenda
+    </a>
+    <p class="cta-note">Respondemos em até 2 horas · Ter a Sáb</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo"><img src="LOGOTIPO_PRINCIPAL-3_150x-100-1.jpg" alt="Amor Doce"></div>
+    <p class="footer-desc">Confeitaria artesanal em Balneário Camboriú. Feito com amor, chocolate belga e ingredientes frescos.</p>
+  </div>
+  <div>
+    <h4>Contato</h4>
+    <ul>
+      <li>
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="rgba(255,255,255,0.4)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.08 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14z"/></svg>
+        <a href="https://wa.me/message/LTSIEJZTHXZGA1" target="_blank">(47) 99148-9325</a>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="rgba(255,255,255,0.4)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Rua 3000, 445 · Centro · BC - SC
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="rgba(255,255,255,0.4)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Ter–Sex: 13h–18h · Sáb: encomendas
+      </li>
+    </ul>
+  </div>
+  <div>
+    <h4>Redes sociais</h4>
+    <ul>
+      <li>
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="rgba(255,255,255,0.4)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <a href="https://www.instagram.com/amordocebc/" target="_blank">@amordocebc</a>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="rgba(255,255,255,0.4)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        <a href="https://www.facebook.com/amordocebcsc/" target="_blank">Amor Doce BC</a>
+      </li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Amor Doce | Por Ana Luisa. Todos os direitos reservados.</span>
+    <span>Balneário Camboriú · SC</span>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/message/LTSIEJZTHXZGA1" target="_blank" class="wa-float" title="Fale pelo WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white"><path d="M12.001 2C6.478 2 2 6.478 2 12.001c0 1.788.475 3.47 1.302 4.924L2 22l5.232-1.278A9.947 9.947 0 0012.001 22C17.523 22 22 17.522 22 12.001 22 6.478 17.523 2 12.001 2zm4.994 13.986c-.214.601-1.246 1.147-1.714 1.196-.424.044-.96.063-1.549-.097-.358-.1-.817-.234-1.401-.457-2.458-.961-4.059-3.405-4.184-3.563-.122-.158-.991-1.316-.991-2.509 0-1.194.625-1.782.846-2.026.222-.244.483-.304.644-.304.16 0 .322.001.464.008.148.007.348-.056.545.416.203.486.689 1.677.749 1.8.061.123.1.267.02.43-.08.162-.122.263-.241.405-.12.142-.252.317-.359.424-.12.119-.245.25-.105.49.14.242.622 1.027 1.335 1.664.917.817 1.69 1.069 1.932 1.19.242.12.383.1.524-.06.142-.162.609-.71.77-.954.162-.243.325-.202.547-.122.222.08 1.41.666 1.652.787.243.122.402.182.463.283.06.102.06.588-.154 1.189z"/></svg>
+</a>
+
+<script>
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Hamburger
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
