@@ -620,8 +620,8 @@ details.filter-highlight[open] .filter-arrow{transform:rotate(180deg);}
           </div>
         </div>
         <div id="mWdInsight" style="font-size:12px;margin-bottom:10px;padding:8px 12px;border-radius:8px;background:color-mix(in srgb,var(--accent) 9%,var(--surface2));border:1px solid color-mix(in srgb,var(--accent) 22%,transparent)"></div>
-        <div class="g2" style="align-items:stretch">
-          <div class="cw" style="height:220px"><canvas id="chMWd"></canvas></div>
+        <div>
+          <div class="cw" style="height:220px;margin-bottom:12px"><canvas id="chMWd"></canvas></div>
           <div class="tc" id="mWdTable" style="overflow-x:auto"></div>
         </div>
       </div>
@@ -2625,7 +2625,8 @@ function renderWeekday(){
     &nbsp;⚠️ Mais caros: ${WD_FULL[w1.i]} (${fR(w1.cpl)}) e ${WD_FULL[w2.i]} (${fR(w2.cpl)}).
     &nbsp;📈 Mais conversas/dia: ${WD_FULL[byVol[0].i]} (${byVol[0].ldm.toFixed(1)}).`:'Sem dados suficientes.';
   const bestSet=new Set([b1?.i,b2?.i]), worstSet=new Set([w1?.i,w2?.i]);
-  const barCol=rows.map((r,i)=>bestSet.has(i)?'#059669':worstSet.has(i)?'#e11d48':(COR_ACENTO||'#E07A72'));
+  // Uma cor só; vermelho apenas quando o custo/conversa passa do limite ruim (CPL_MEDIO)
+  const barCol=rows.map(r=>r.cpl!=null&&r.cpl>CPL_MEDIO?'#e11d48':(COR_ACENTO||'#E07A72'));
   dc('chMWd');
   CH['chMWd']=new Chart(document.getElementById('chMWd'),{
     data:{labels:WD_LBL,datasets:[
@@ -2642,7 +2643,7 @@ function renderWeekday(){
   });
   const th='style="font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted2)"';
   document.getElementById('mWdTable').innerHTML=`<table><thead><tr><th ${th}>Dia</th><th class="num" ${th}>Invest./dia</th><th class="num" ${th}>Conv./dia</th><th class="num" ${th}>Custo/Conv.</th><th class="num" ${th}>% Conv.</th></tr></thead><tbody>
-    ${rows.map((r,i)=>`<tr${bestSet.has(i)?' style="background:rgba(5,150,105,.07)"':worstSet.has(i)?' style="background:rgba(225,29,72,.06)"':''}>
+    ${rows.map((r,i)=>`<tr${r.cpl!=null&&r.cpl>CPL_MEDIO?' style="background:rgba(225,29,72,.06)"':''}>
       <td style="font-weight:600">${WD_LBL[i]}${bestSet.has(i)?' 🏆':''}</td>
       <td class="num">${fR(r.spm)}</td><td class="num">${r.ldm!=null?r.ldm.toFixed(1):'—'}</td>
       <td class="num ${cplCls(r.cpl)}" style="font-weight:700">${fR(r.cpl)}</td>
