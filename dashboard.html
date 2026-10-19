@@ -1550,8 +1550,6 @@ function buildTable(elId,data,mainCol){
     {k:'imp',l:'Impr.',cls:'cn'},{k:'lc',l:'Cliques',cls:'cn'},{k:'pv',l:'PV',cls:'cn'},
     {k:'ld',l:'Conversas',f:fN},
     {k:'ctr',l:'CTR Link',f:fP,cls2:v=>funnelCls(v,CTR_BOM,CTR_MEDIO).cls},
-    {k:'cr',l:'C.Rate',f:fP,cls2:v=>funnelCls(v,CR_BOM,CR_MEDIO).cls},
-    {k:'tx_cv',l:'Tx.Conv',f:fP,cls2:v=>funnelCls(v,TX_CONV_BOM,TX_CONV_MEDIO).cls},
     {k:'cpl',l:'Custo/Conv.',f:fR,cls2:cplCls},
     {k:'cpm',l:'CPM',f:fR},
   ];
@@ -1628,8 +1626,6 @@ function buildTable(elId,data,mainCol){
             '<td class="num" style="padding:8px 10px;color:var(--muted2)">'+fN(tot.pv)+'</td>'+
             '<td class="num" style="padding:8px 10px;font-weight:700">'+fN(tot.ld)+'</td>'+
             '<td class="num '+funnelCls(ctr,CTR_BOM,CTR_MEDIO).cls+'" style="padding:8px 10px">'+fP(ctr)+'</td>'+
-              '<td class="num '+funnelCls(cr,CR_BOM,CR_MEDIO).cls+'" style="padding:8px 10px">'+fP(cr)+'</td>'+
-            '<td class="num '+funnelCls(txcv,TX_CONV_BOM,TX_CONV_MEDIO).cls+'" style="padding:8px 10px">'+fP(txcv)+'</td>'+
             '<td class="num '+cplCls(cpl)+'" style="padding:8px 10px">'+fR(cpl)+'</td>'+
             '<td class="num" style="padding:8px 10px">'+fR(cpm)+'</td>';
         })()}
@@ -1658,7 +1654,7 @@ function toggleCampRow(id,rowEl){
         ? '<th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Invest.</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Impr.</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Cliques</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Engaj.</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">CTR Link</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Custo/Conv.</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">CPE</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">CPM</th>'
         : chartMode==='reconhecimento'
         ? '<th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Invest.</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Impr.</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Alcance</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">CTR Link</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">CTR Total</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">CPM</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Conversas</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Custo/Conv.</th>'
-        : '<th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Invest.</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Impr.</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Conversas</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">CTR Link</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">C.Rate</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Tx.Conv</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Custo/Conv.</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">CPM</th>'
+        : '<th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Invest.</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Impr.</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Conversas</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">CTR Link</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">Custo/Conv.</th><th class="num" style="font-size:9px;padding:4px 8px;color:var(--muted2)">CPM</th>'
       )+
       '</tr></thead><tbody>'+
       adsets.map(a=>`<tr onclick="toggleAdsetRow('${id}','${a.n.replace(/'/g,"\'")}','${campName.replace(/'/g,"\'")}',this)" style="cursor:pointer">
@@ -1686,8 +1682,6 @@ function toggleCampRow(id,rowEl){
         <td class="num" style="font-size:10px;padding:5px 8px;color:var(--muted2)">${fN(a.imp)}</td>
         <td class="num" style="font-size:10px;padding:5px 8px">${fN(a.ld)}</td>
         <td class="num ${funnelCls(a.ctr,CTR_BOM,CTR_MEDIO).cls}" style="font-size:10px;padding:5px 8px">${fP(a.ctr)}</td>
-        <td class="num ${funnelCls(a.cr,CR_BOM,CR_MEDIO).cls}" style="font-size:10px;padding:5px 8px">${fP(a.cr)}</td>
-        <td class="num ${funnelCls(a.tx_cv,TX_CONV_BOM,TX_CONV_MEDIO).cls}" style="font-size:10px;padding:5px 8px">${fP(a.tx_cv)}</td>
         <td class="num ${cplCls(a.cpl)}" style="font-size:10px;padding:5px 8px">${fR(a.cpl)}</td>
         <td class="num ${cpmCls(a.cpm)}" style="font-size:10px;padding:5px 8px">${fR(a.cpm)}</td>
         `}
@@ -2141,8 +2135,6 @@ function renderDiarioCharts(){
     {id:'ctr',  ttl:'CTR (%)',          suffix:'%', data:()=>md.ctr},
     {id:'cpm',  ttl:'CPM (R$)',         suffix:'',  fmt:v=>v!=null?'R$'+v.toFixed(2):null, data:()=>md.cpm},
     {id:'cpl',  ttl:'Custo por Conversa (R$)', suffix:'', fmt:v=>v!=null?'R$'+v.toFixed(2):null, data:()=>md.cpl},
-    {id:'cr',   ttl:'Connect Rate (%)', suffix:'%', data:()=>md.connect_rate},
-    {id:'tx_cv',ttl:'Taxa Conversão (%)',suffix:'%', data:()=>md.tx_conv},
     {id:'cpe',  ttl:'Custo por Engajamento (R$)', suffix:'', fmt:v=>v!=null?'R$'+v.toFixed(2):null, data:()=>md.cpe},
   ];
 
