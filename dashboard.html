@@ -177,9 +177,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 /* SEG */
 .seg-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);overflow-x:auto;}
 .seg-card table{width:100%;border-collapse:collapse;}
-.seg-card thead th{font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:700;padding:7px 10px;background:var(--surface2);border-bottom:1px solid var(--border);}
+.g3>*,.g2>*{min-width:0;}
+.seg-card thead th{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700;padding:7px 7px;white-space:nowrap;background:var(--surface2);border-bottom:1px solid var(--border);}
 .seg-card thead th.num{text-align:right;}
-.seg-card tbody td{padding:6px 10px;font-size:11px;border-bottom:1px solid var(--border);}
+.seg-card tbody td{padding:6px 7px;font-size:11px;border-bottom:1px solid var(--border);}
 .seg-card tbody tr:last-child td{border-bottom:none;}
 .seg-ttl{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;margin-bottom:8px;}
 
@@ -1855,14 +1856,14 @@ function renderSeg(){
     // Tabela com %
     tEl.innerHTML=`<table style="width:100%;table-layout:fixed">
       <thead><tr>
-        <th style="width:40%">${lbl}</th>
-        <th class="num" style="width:30%">Invest.</th>
-        <th class="num" style="width:15%">Conv.</th>
-        <th class="num" style="width:15%">Custo/Conv.</th>
+        <th style="width:27%">${lbl}</th>
+        <th class="num" style="width:36%">Invest.</th>
+        <th class="num" style="width:13%">Conv.</th>
+        <th class="num" style="width:24%">Custo/Conv.</th>
       </tr></thead>
       <tbody>${data.map(r=>`<tr>
         <td style="font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:0" title="${r.n}">${r.n}</td>
-        <td class="num" style="font-size:10px;white-space:nowrap">${fR(r.spend)} <span style="color:var(--muted2);font-size:9px">${totalSpend>0?'('+r2(r.spend/totalSpend*100).toFixed(1)+'%)':''}</span></td>
+        <td class="num" style="font-size:10px"><span style="white-space:nowrap">${fR(r.spend)}</span> <span style="color:var(--muted2);font-size:9px;white-space:nowrap">${totalSpend>0?'('+r2(r.spend/totalSpend*100).toFixed(1)+'%)':''}</span></td>
         <td class="num" style="font-size:10px">${fN(r.ld)}</td>
         <td class="num ${cplCls(r.cpl)}" style="font-size:10px">${fR(r.cpl)}</td>
       </tr>`).join('')}</tbody>
