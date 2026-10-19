@@ -607,6 +607,24 @@ details.filter-highlight[open] .filter-arrow{transform:rotate(180deg);}
         <div class="cc-s">Conversões (barras azuis) · Invest. (linha verde) · Custo/Conv. (linha preta tracejada)</div>
         <div class="cw" style="height:220px"><canvas id="chMHistMain"></canvas></div>
       </div>
+      <div class="cc mb14" id="mWdCard">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+          <div><div class="cc-t">Padrão por Dia da Semana</div>
+          <div class="cc-s">Média por dia com investimento · barras = conversas/dia · linha = custo/conversa</div></div>
+          <div class="pg" id="mWdPer" style="display:flex;gap:2px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:2px">
+            <button class="pb" data-p="28" onclick="setWdPer('28')">Últ. 4 sem.</button>
+            <button class="pb" data-p="90" onclick="setWdPer('90')">90d</button>
+            <button class="pb" data-p="180" onclick="setWdPer('180')">180d</button>
+            <button class="pb" data-p="365" onclick="setWdPer('365')">12m</button>
+            <button class="pb" data-p="all" onclick="setWdPer('all')">Geral</button>
+          </div>
+        </div>
+        <div id="mWdInsight" style="font-size:12px;margin-bottom:10px;padding:8px 12px;border-radius:8px;background:color-mix(in srgb,var(--accent) 9%,var(--surface2));border:1px solid color-mix(in srgb,var(--accent) 22%,transparent)"></div>
+        <div class="g2" style="align-items:stretch">
+          <div class="cw" style="height:220px"><canvas id="chMWd"></canvas></div>
+          <div class="tc" id="mWdTable" style="overflow-x:auto"></div>
+        </div>
+      </div>
       <div class="g2 mb14">
         <div class="cc"><div class="cc-t">CPM Mensal (R$)</div><div class="cw" style="height:170px"><canvas id="chMHistCPM"></canvas></div></div>
         <div class="cc"><div class="cc-t">CTR Mensal (%)</div><div class="cw" style="height:170px"><canvas id="chMHistCTR"></canvas></div></div>
@@ -672,6 +690,7 @@ const META_TABLES = null;
 const DATA_GERACAO = null;
 const META_BD = null;
 const META_MONTHLY = null;
+const META_WEEKDAY = null;
 const PESQUISA = null;
 // Google Ads
 const GOOGLE_DAILY = null;
@@ -2595,8 +2614,52 @@ function toggleGAdgroup(agid, el){
 // ═══ SEO ═══
 
 // ═══ META HISTÓRICO ═══
+
+// ── Padrão por dia da semana ──
+let WD_PER='28';
+const WD_LBL=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+const WD_FULL=['segunda','terça','quarta','quinta','sexta','sábado','domingo'];
+function setWdPer(p){WD_PER=p;renderWeekday();}
+function renderWeekday(){
+  const card=document.getElementById('mWdCard');
+  if(!META_WEEKDAY||!META_WEEKDAY[WD_PER]){if(card)card.style.display='none';return;}
+  document.querySelectorAll('#mWdPer .pb').forEach(b=>b.classList.toggle('on',b.dataset.p===WD_PER));
+  const rows=META_WEEKDAY[WD_PER];
+  const ok=rows.map((r,i)=>({...r,i})).filter(r=>r.cpl!=null);
+  const best=[...ok].sort((a,b)=>a.cpl-b.cpl), byVol=[...ok].sort((a,b)=>b.ldm-a.ldm);
+  const tS=rows.reduce((a,r)=>a+r.spend,0), tL=rows.reduce((a,r)=>a+r.leads,0), avg=tL?tS/tL:null;
+  const b1=best[0], b2=best[1], w1=best[best.length-1], w2=best[best.length-2];
+  document.getElementById('mWdInsight').innerHTML=b1?`🏆 <b>Melhores dias: ${WD_FULL[b1.i]} (${fR(b1.cpl)}) e ${WD_FULL[b2.i]} (${fR(b2.cpl)})</b> por conversa · média ${fR(r2(avg))}.
+    &nbsp;⚠️ Mais caros: ${WD_FULL[w1.i]} (${fR(w1.cpl)}) e ${WD_FULL[w2.i]} (${fR(w2.cpl)}).
+    &nbsp;📈 Mais conversas/dia: ${WD_FULL[byVol[0].i]} (${byVol[0].ldm.toFixed(1)}).`:'Sem dados suficientes.';
+  const bestSet=new Set([b1?.i,b2?.i]), worstSet=new Set([w1?.i,w2?.i]);
+  const barCol=rows.map((r,i)=>bestSet.has(i)?'#059669':worstSet.has(i)?'#e11d48':(COR_ACENTO||'#E07A72'));
+  dc('chMWd');
+  CH['chMWd']=new Chart(document.getElementById('chMWd'),{
+    data:{labels:WD_LBL,datasets:[
+      {label:'Conversas/dia',data:rows.map(r=>r.ldm),backgroundColor:barCol.map(c=>c+'cc'),borderRadius:5,type:'bar',
+       datalabels:{display:showLabels,color:TXT(),font:{size:labelSize,weight:'bold'},anchor:'end',align:'top',offset:2,formatter:v=>v!=null?v.toFixed(1):''}},
+      {label:'Custo/Conv.',data:rows.map(r=>r.cpl),borderColor:DARK()?'#e5e7eb':'#111827',borderDash:[5,3],backgroundColor:'transparent',pointRadius:4,borderWidth:1.5,tension:.3,type:'line',yAxisID:'y2',
+       datalabels:{display:showLabels,font:{size:labelSize,weight:'bold'},anchor:'end',align:'top',offset:4,formatter:v=>v!=null?'R$'+v.toFixed(2):null,color:DARK()?'#f9fafb':'#111827',clip:false}},
+    ]},
+    options:{...bo(),scales:{
+      x:{ticks:{color:TXT(),font:bf},grid:{color:GRID()}},
+      y:{min:0,ticks:{color:TXT(),font:bf},grid:{color:GRID()}},
+      y2:{position:'right',min:0,ticks:{color:DARK()?'#9ca3af':'#374151',font:bf,callback:v=>'R$'+v.toFixed(0)},grid:{display:false}},
+    }}
+  });
+  const th='style="font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted2)"';
+  document.getElementById('mWdTable').innerHTML=`<table><thead><tr><th ${th}>Dia</th><th class="num" ${th}>Invest./dia</th><th class="num" ${th}>Conv./dia</th><th class="num" ${th}>Custo/Conv.</th><th class="num" ${th}>% Conv.</th></tr></thead><tbody>
+    ${rows.map((r,i)=>`<tr${bestSet.has(i)?' style="background:rgba(5,150,105,.07)"':worstSet.has(i)?' style="background:rgba(225,29,72,.06)"':''}>
+      <td style="font-weight:600">${WD_LBL[i]}${bestSet.has(i)?' 🏆':''}</td>
+      <td class="num">${fR(r.spm)}</td><td class="num">${r.ldm!=null?r.ldm.toFixed(1):'—'}</td>
+      <td class="num ${cplCls(r.cpl)}" style="font-weight:700">${fR(r.cpl)}</td>
+      <td class="num">${tL?(r.leads/tL*100).toFixed(1)+'%':'—'}</td></tr>`).join('')}
+    </tbody></table>`;
+}
 function renderMetaHist(){
   if(!META_MONTHLY) return;
+  renderWeekday();
   const {lbl,totalS,totalL,cplG,cpmG,ctrG}=META_MONTHLY;
   const tS=totalS.reduce((a,b)=>a+b,0), tL=totalL.reduce((a,b)=>a+b,0);
   const avgCPM=cpmG.filter(v=>v>0).reduce((a,b)=>a+b,0)/(cpmG.filter(v=>v>0).length||1);

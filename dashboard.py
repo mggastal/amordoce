@@ -638,6 +638,27 @@ def google_monthly(df):
                 "conv":round(float(r["conversions"]),2),"clicks":int(r["clicks"]),"imp":int(r["impressions"])})
     print(f"     Google Mensal: {len(months)} meses"); return out
 
+
+def meta_weekday(df):
+    """Padrão por dia da semana (seg→dom): média diária de invest. e conversas + custo/conv.
+    Só conta dias com investimento, para dias sem campanha rodando não puxarem a média."""
+    day=df.groupby("date").agg(spend=("spend","sum"),leads=("leads","sum")).reset_index()
+    day=day[day["spend"]>0]
+    if day.empty: return {}
+    fim=day["date"].max(); out={}
+    for key,dias in [("28",28),("90",90),("180",180),("365",365),("all",None)]:
+        sub=day if dias is None else day[day["date"]>fim-pd.Timedelta(days=dias)]
+        rows=[]
+        for wd in range(7):
+            w=sub[sub["date"].dt.dayofweek==wd]; n=len(w)
+            sp=float(w["spend"].sum()); ld=float(w["leads"].sum())
+            rows.append({"n":n,"spend":round(sp,2),"leads":int(ld),
+                "spm":round(sp/n,2) if n else None,"ldm":round(ld/n,2) if n else None,
+                "cpl":round(sp/ld,2) if ld>0 else None})
+        out[key]=rows
+    print(f"     Dia da semana: {len(day)} dias com invest.")
+    return out
+
 # ══ INJEÇÃO ════════════════════════════════════════════
 def replace_js_const(html, name, value):
     replacement = f"const {name} = {json.dumps(value, ensure_ascii=False)};"
@@ -674,6 +695,7 @@ def main():
     m_dc=meta_daily_camps(df_meta); m_raw=meta_raw(df_meta)
     m_t=meta_tables(df_meta,img_dir); m_bd=meta_breakdowns(df_meta)
     m_month=meta_monthly(df_meta)
+    m_wd=meta_weekday(df_meta)
     total_leads=m_k["lct"]["leads"] if LANCAMENTO_COD else m_k["all"]["leads"]
     print(f"  ✓ {total_leads} leads | {MOEDA_SIMBOLO} {m_k['lct']['spend']:,.2f} invest.")
 
@@ -712,6 +734,7 @@ def main():
     html=replace_js_const(html,"META_TABLES",     m_t)
     html=replace_js_const(html,"META_BD",         m_bd)
     html=replace_js_const(html,"META_MONTHLY",    m_month)
+    html=replace_js_const(html,"META_WEEKDAY",    m_wd)
     html=replace_js_const(html,"PESQUISA",        False)
     html=replace_js_const(html,"DATA_GERACAO",    date.today().strftime("%Y-%m-%d"))
     html=replace_js_const(html,"GOOGLE_DAILY",    g_daily)
