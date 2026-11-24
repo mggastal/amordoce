@@ -13,7 +13,7 @@ from pathlib import Path
 # CONFIG DO CLIENTE — edite apenas esta seção
 # ══════════════════════════════════════════════════════
 SHEET_ID         = "1TF7K6YU5E0GExkF_K3dPGwBjF8xVLJEYy059lM8efOs"
-TEMPLATE_FILE    = "dashboard.html"
+TEMPLATE_FILE    = "modelos/dashboard.html"
 OUTPUT_FILE      = "dashboard/index.html"
 SENHA            = os.environ.get("DASH_SENHA", "001515")
 
