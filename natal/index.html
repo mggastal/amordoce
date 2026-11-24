@@ -58,6 +58,18 @@
   .btn-contorno:hover { border-color: #fff; }
   .btn-contorno-escuro { background: transparent; color: var(--verde); border: 2px solid var(--verde); }
   .hero-botoes { display: flex; flex-wrap: wrap; gap: 12px; }
+  .nav-links a.btn.btn-contorno-escuro { color: var(--verde); }
+  .nav-links a.btn.btn-contorno-escuro:hover { background: var(--verde); color: #fff; }
+  .nav-baixar svg { width: 16px; height: 16px; }
+  .so-mobile { display: none !important; }
+  /* aviso flutuante no fim da página */
+  .aviso-pdf { position: fixed; left: 20px; bottom: 20px; z-index: 61; max-width: 340px; background: #fff; border: 1px solid var(--borda); border-radius: 18px; padding: 16px 44px 16px 18px; box-shadow: 0 14px 40px rgba(31,74,58,0.22); display: flex; align-items: center; gap: 14px; transform: translateY(140%); opacity: 0; transition: transform .45s ease, opacity .45s ease; pointer-events: none; }
+  .aviso-pdf.mostrar { transform: none; opacity: 1; pointer-events: auto; }
+  .aviso-pdf .ico { flex: 0 0 44px; height: 44px; border-radius: 12px; background: var(--vermelho); display: flex; align-items: center; justify-content: center; color: #fff; }
+  .aviso-pdf .ico svg { width: 22px; height: 22px; }
+  .aviso-pdf strong { display: block; color: var(--verde); font-size: 15px; line-height: 1.25; }
+  .aviso-pdf a.baixar { display: inline-block; margin-top: 6px; color: var(--vermelho); font-weight: 800; font-size: 14px; text-decoration: none; }
+  .aviso-pdf .fechar { position: absolute; top: 8px; right: 10px; background: none; border: 0; font-size: 22px; line-height: 1; color: var(--marrom); cursor: pointer; padding: 4px; opacity: .7; }
   .btn-lg { padding: 17px 34px; font-size: 17px; }
   .btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
   .menu-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 6px; }
@@ -230,7 +242,12 @@
     .nav-links a { display: block; padding: 12px; }
     .menu-toggle { display: block; }
   }
+  @media (max-width: 980px) {
+    .so-mobile { display: inline-flex !important; }
+    .nav-links a.nav-baixar { display: inline-flex; margin: 6px auto; padding: 10px 20px; }
+  }
   @media (max-width: 600px) {
+    .aviso-pdf { left: 12px; right: 88px; bottom: 16px; max-width: none; padding: 14px 40px 14px 14px; }
     .wrap { width: calc(100% - 32px); }
     .faixa { font-size: 13px; }
     .hero-in { padding: 48px 0 56px; gap: 36px; }
@@ -285,6 +302,7 @@
       <li><a href="#lembrancinhas">Lembrancinhas</a></li>
       <li><a href="#salgados">Salgados</a></li>
       <li><a href="#como-funciona">Como funciona</a></li>
+      <li><a href="Menu_Natal_Amor_Doce_2026.pdf" download class="btn btn-contorno-escuro btn-sm nav-baixar"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg> Baixar cardápio</a></li>
       <li><a href="#" class="btn btn-vermelho btn-sm js-wa" data-produto="">Encomendar</a></li>
     </ul>
     <button class="menu-toggle" aria-label="Abrir menu" onclick="document.getElementById('navLinks').classList.toggle('aberto')"><span></span><span></span><span></span></button>
@@ -303,7 +321,7 @@
         <svg viewBox="0 0 24 24"><path d="M12.001 2C6.478 2 2 6.478 2 12.001c0 1.788.475 3.47 1.302 4.924L2 22l5.232-1.278A9.947 9.947 0 0012.001 22C17.523 22 22 17.522 22 12.001 22 6.478 17.523 2 12.001 2zm4.994 13.986c-.214.601-1.246 1.147-1.714 1.196-.424.044-.96.063-1.549-.097-.358-.1-.817-.234-1.401-.457-2.458-.961-4.059-3.405-4.184-3.563-.122-.158-.991-1.316-.991-2.509 0-1.194.625-1.782.846-2.026.222-.244.483-.304.644-.304.16 0 .322.001.464.008.148.007.348-.056.545.416.203.486.689 1.677.749 1.8.061.123.1.267.02.43-.08.162-.122.263-.241.405-.12.142-.252.317-.359.424-.12.119-.245.25-.105.49.14.242.622 1.027 1.335 1.664.917.817 1.69 1.069 1.932 1.19.242.12.383.1.524-.06.142-.162.609-.71.77-.954.162-.243.325-.202.547-.122.222.08 1.41.666 1.652.787.243.122.402.182.463.283.06.102.06.588-.154 1.189z"/></svg>
         Fazer minha encomenda
       </a>
-      <a href="Menu_Natal_Amor_Doce_2026.pdf" download class="btn btn-contorno btn-lg"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg> Baixar cardápio</a>
+      <a href="Menu_Natal_Amor_Doce_2026.pdf" download class="btn btn-contorno btn-lg so-mobile"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg> Baixar cardápio</a>
       </div>
       <ul class="hero-pontos">
         <li>Retirada dia 24/12</li>
@@ -593,7 +611,6 @@
         <p>Faça seu pedido pelo WhatsApp e garanta seu horário de retirada. O cardápio fica disponível até esgotar a nossa capacidade de produção.</p>
         <div class="hero-botoes">
           <a href="#" class="btn btn-vermelho btn-lg js-wa" data-produto="">Fazer minha encomenda</a>
-          <a href="Menu_Natal_Amor_Doce_2026.pdf" download class="btn btn-contorno-escuro btn-lg"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg> Baixar cardápio em PDF</a>
         </div>
       </div>
       <div>
@@ -620,7 +637,6 @@
     <svg viewBox="0 0 24 24"><path d="M12.001 2C6.478 2 2 6.478 2 12.001c0 1.788.475 3.47 1.302 4.924L2 22l5.232-1.278A9.947 9.947 0 0012.001 22C17.523 22 22 17.522 22 12.001 22 6.478 17.523 2 12.001 2zm4.994 13.986c-.214.601-1.246 1.147-1.714 1.196-.424.044-.96.063-1.549-.097-.358-.1-.817-.234-1.401-.457-2.458-.961-4.059-3.405-4.184-3.563-.122-.158-.991-1.316-.991-2.509 0-1.194.625-1.782.846-2.026.222-.244.483-.304.644-.304.16 0 .322.001.464.008.148.007.348-.056.545.416.203.486.689 1.677.749 1.8.061.123.1.267.02.43-.08.162-.122.263-.241.405-.12.142-.252.317-.359.424-.12.119-.245.25-.105.49.14.242.622 1.027 1.335 1.664.917.817 1.69 1.069 1.932 1.19.242.12.383.1.524-.06.142-.162.609-.71.77-.954.162-.243.325-.202.547-.122.222.08 1.41.666 1.652.787.243.122.402.182.463.283.06.102.06.588-.154 1.189z"/></svg>
     Quero fazer minha encomenda
   </a>
-  <p style="margin:22px auto 0;font-size:15px"><a href="Menu_Natal_Amor_Doce_2026.pdf" download style="color:var(--ouro-claro);font-weight:800">Baixar o cardápio completo em PDF</a></p>
 </section>
 
 <!-- LOJA -->
@@ -680,6 +696,12 @@
   <svg viewBox="0 0 24 24"><path d="M12.001 2C6.478 2 2 6.478 2 12.001c0 1.788.475 3.47 1.302 4.924L2 22l5.232-1.278A9.947 9.947 0 0012.001 22C17.523 22 22 17.522 22 12.001 22 6.478 17.523 2 12.001 2zm4.994 13.986c-.214.601-1.246 1.147-1.714 1.196-.424.044-.96.063-1.549-.097-.358-.1-.817-.234-1.401-.457-2.458-.961-4.059-3.405-4.184-3.563-.122-.158-.991-1.316-.991-2.509 0-1.194.625-1.782.846-2.026.222-.244.483-.304.644-.304.16 0 .322.001.464.008.148.007.348-.056.545.416.203.486.689 1.677.749 1.8.061.123.1.267.02.43-.08.162-.122.263-.241.405-.12.142-.252.317-.359.424-.12.119-.245.25-.105.49.14.242.622 1.027 1.335 1.664.917.817 1.69 1.069 1.932 1.19.242.12.383.1.524-.06.142-.162.609-.71.77-.954.162-.243.325-.202.547-.122.222.08 1.41.666 1.652.787.243.122.402.182.463.283.06.102.06.588-.154 1.189z"/></svg>
 </a>
 
+<div class="aviso-pdf" id="avisoPdf" role="dialog" aria-label="Baixar cardápio">
+  <div class="ico"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg></div>
+  <div><strong>Quer o cardápio de Natal completo?</strong><a class="baixar" href="Menu_Natal_Amor_Doce_2026.pdf" download>Baixar em PDF</a></div>
+  <button class="fechar" aria-label="Fechar" type="button">&times;</button>
+</div>
+
 <script>
   // Links de WhatsApp com mensagem pronta por produto
   const WA = "5547991489325";
@@ -701,6 +723,18 @@
     if (e.isIntersecting) { e.target.classList.add("visivel"); obs.unobserve(e.target); }
   }), { threshold: 0.1 });
   document.querySelectorAll(".revelar").forEach(el => obs.observe(el));
+
+  // Aviso para baixar o cardápio ao chegar no final da página (uma vez por visita)
+  const aviso = document.getElementById("avisoPdf");
+  let fechado = false;
+  try { fechado = sessionStorage.getItem("avisoPdf") === "1"; } catch (e) {}
+  const fechar = () => { aviso.classList.remove("mostrar"); fechado = true; try { sessionStorage.setItem("avisoPdf", "1"); } catch (e) {} };
+  aviso.querySelector(".fechar").addEventListener("click", fechar);
+  aviso.querySelector(".baixar").addEventListener("click", () => setTimeout(fechar, 400));
+  const fim = document.querySelector(".cta-final");
+  if (fim) new IntersectionObserver(es => es.forEach(e => {
+    if (!fechado) aviso.classList.toggle("mostrar", e.isIntersecting || e.boundingClientRect.top < 0);
+  }), { threshold: 0.25 }).observe(fim);
 </script>
 </body>
 </html>
