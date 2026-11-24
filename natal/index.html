@@ -61,7 +61,6 @@
   .nav-links a.btn.btn-contorno-escuro { color: var(--verde); }
   .nav-links a.btn.btn-contorno-escuro:hover { background: var(--verde); color: #fff; }
   .nav-baixar svg { width: 16px; height: 16px; }
-  .so-mobile { display: none !important; }
   /* aviso flutuante no fim da página */
   .aviso-pdf { position: fixed; left: 20px; bottom: 20px; z-index: 61; max-width: 340px; background: #fff; border: 1px solid var(--borda); border-radius: 18px; padding: 16px 44px 16px 18px; box-shadow: 0 14px 40px rgba(31,74,58,0.22); display: flex; align-items: center; gap: 14px; transform: translateY(140%); opacity: 0; transition: transform .45s ease, opacity .45s ease; pointer-events: none; }
   .aviso-pdf.mostrar { transform: none; opacity: 1; pointer-events: auto; }
@@ -243,7 +242,6 @@
     .menu-toggle { display: block; }
   }
   @media (max-width: 980px) {
-    .so-mobile { display: inline-flex !important; }
     .nav-links a.nav-baixar { display: inline-flex; margin: 6px auto; padding: 10px 20px; }
   }
   @media (max-width: 600px) {
@@ -321,7 +319,6 @@
         <svg viewBox="0 0 24 24"><path d="M12.001 2C6.478 2 2 6.478 2 12.001c0 1.788.475 3.47 1.302 4.924L2 22l5.232-1.278A9.947 9.947 0 0012.001 22C17.523 22 22 17.522 22 12.001 22 6.478 17.523 2 12.001 2zm4.994 13.986c-.214.601-1.246 1.147-1.714 1.196-.424.044-.96.063-1.549-.097-.358-.1-.817-.234-1.401-.457-2.458-.961-4.059-3.405-4.184-3.563-.122-.158-.991-1.316-.991-2.509 0-1.194.625-1.782.846-2.026.222-.244.483-.304.644-.304.16 0 .322.001.464.008.148.007.348-.056.545.416.203.486.689 1.677.749 1.8.061.123.1.267.02.43-.08.162-.122.263-.241.405-.12.142-.252.317-.359.424-.12.119-.245.25-.105.49.14.242.622 1.027 1.335 1.664.917.817 1.69 1.069 1.932 1.19.242.12.383.1.524-.06.142-.162.609-.71.77-.954.162-.243.325-.202.547-.122.222.08 1.41.666 1.652.787.243.122.402.182.463.283.06.102.06.588-.154 1.189z"/></svg>
         Fazer minha encomenda
       </a>
-      <a href="Menu_Natal_Amor_Doce_2026.pdf" download class="btn btn-contorno btn-lg so-mobile"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg> Baixar cardápio</a>
       </div>
       <ul class="hero-pontos">
         <li>Retirada dia 24/12</li>
