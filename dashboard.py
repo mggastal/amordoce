@@ -791,28 +791,35 @@ label{display:flex;gap:8px;align-items:center;justify-content:center;font-size:1
 <form class="box" id="f"><img src="logo.png" alt="Amor Doce"><h1>Dashboard de anúncios</h1>
 <input id="pw" type="password" inputmode="numeric" placeholder="senha" autocomplete="current-password" autofocus>
 <label><input type="checkbox" id="lembrar" checked style="width:auto"> Lembrar neste aparelho</label>
-<button type="submit">Entrar</button><div class="erro" id="erro"></div></form>
+<button type="submit" id="btn">Entrar</button><div class="erro" id="erro"></div></form>
 <script>
-const P=/*__PAYLOAD__*/null;
+// dados cifrados ficam em dados.json (baixados em segundo plano; a senha aparece na hora)
+const DADOS=fetch("dados.json?v=__VERSAO__").then(r=>{if(!r.ok)throw new Error(r.status);return r.json();});
+let P=null;
 const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 async function abrir(senha){
+  if(!P) P=await DADOS;
   const k0=await crypto.subtle.importKey("raw",new TextEncoder().encode(senha),"PBKDF2",false,["deriveKey"]);
   const key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(P.salt),iterations:P.it,hash:"SHA-256"},k0,{name:"AES-GCM",length:256},false,["decrypt"]);
   const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(P.iv)},key,b64(P.ct));
   return new TextDecoder().decode(pt);
 }
 async function entrar(senha,lembrar){
-  let html; try{html=await abrir(senha);}catch(e){return false;}
+  let html;
+  try{ if(!P) P=await DADOS; }catch(e){ document.getElementById("erro").textContent="Não foi possível carregar os dados. Atualize a página."; return null; }
+  try{html=await abrir(senha);}catch(e){return false;}
   try{ if(lembrar) localStorage.setItem("ad_dash_s",senha); }catch(e){}
   document.open(); document.write(html); document.close(); return true;
 }
 document.getElementById("f").addEventListener("submit",async e=>{
   e.preventDefault();
+  const btn=document.getElementById("btn"); btn.textContent="Carregando..."; btn.disabled=true;
   const ok=await entrar(document.getElementById("pw").value,document.getElementById("lembrar").checked);
-  if(!ok) document.getElementById("erro").textContent="Senha incorreta";
+  btn.textContent="Entrar"; btn.disabled=false;
+  if(ok===false) document.getElementById("erro").textContent="Senha incorreta";
 });
 (async()=>{let s=null;try{s=localStorage.getItem("ad_dash_s");}catch(e){}
-  if(s && !(await entrar(s,false))){try{localStorage.removeItem("ad_dash_s");}catch(e){}}})();
+  if(s && (await entrar(s,false))===false){try{localStorage.removeItem("ad_dash_s");}catch(e){}}})();
 </script></body></html>"""
 
 
@@ -825,7 +832,8 @@ def proteger(html):
     key = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt, iterations=it).derive(SENHA.encode())
     ct = AESGCM(key).encrypt(iv, html.encode("utf-8"), None)
     b = lambda x: base64.b64encode(x).decode()
-    return LOGIN_HTML.replace("/*__PAYLOAD__*/null", json.dumps({"salt": b(salt), "iv": b(iv), "ct": b(ct), "it": it}))
+    Path(OUTPUT_FILE).with_name("dados.json").write_text(json.dumps({"salt": b(salt), "iv": b(iv), "ct": b(ct), "it": it}))
+    return LOGIN_HTML.replace("__VERSAO__", b(iv)[:8].replace("/", "_").replace("+", "-"))
 
 
 if __name__ == "__main__":
