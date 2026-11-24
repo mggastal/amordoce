@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Menu de Natal 2026 · Amor Doce</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  @page { size: 540px 960px; margin: 0; }
+  :root {
+    --verde: #1F4A3A; --verde-escuro: #15362A; --verde-claro: #E7F0EA;
+    --vermelho: #B23A33; --ouro: #C9A24A; --ouro-claro: #F3E7C6;
+    --creme: #FBF6F0; --branco: #FFFDFA; --marrom: #4A3027; --texto: #3A2A24; --suave: #7E6A62;
+    --borda: rgba(74,48,39,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--creme); }
+  body { font-family: 'Nunito', sans-serif; color: var(--texto); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  img { display: block; }
+  a { text-decoration: none; color: inherit; }
+
+  .pag { width: 540px; height: 960px; position: relative; overflow: hidden; page-break-after: always; break-after: page; background: var(--creme); display: flex; flex-direction: column; }
+  .pag:last-child { page-break-after: auto; break-after: auto; }
+
+  /* moldura com pontinhos de neve nas páginas verdes */
+  .verde { background: var(--verde); color: #fff; }
+  .verde::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.10) 1.5px, transparent 1.6px), radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1.1px); background-size: 40px 40px, 20px 20px; background-position: 0 0, 10px 14px; }
+  .verde > * { position: relative; }
+  .vermelho { background: var(--vermelho); color: #fff; }
+  .vermelho::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, rgba(255,255,255,0.05) 0 16px, transparent 16px 32px); }
+  .vermelho > * { position: relative; }
+
+  /* cabeçalho e rodapé de página */
+  .topo { display: flex; justify-content: space-between; align-items: center; padding: 26px 32px 0; }
+  .topo img { height: 34px; }
+  .verde .topo img, .vermelho .topo img { filter: brightness(0) invert(1); opacity: .92; }
+  .topo span { font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--vermelho); }
+  .verde .topo span, .vermelho .topo span { color: var(--ouro-claro); }
+  .rodape { margin-top: auto; padding: 0 32px 22px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: var(--suave); }
+  .verde .rodape, .vermelho .rodape { color: rgba(255,255,255,.6); }
+
+  .tag { font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--vermelho); }
+  .verde .tag, .vermelho .tag { color: var(--ouro); }
+  h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+  h2.secao { font-size: 40px; color: var(--verde); line-height: 1.05; margin: 6px 0 6px; }
+  .verde h2.secao, .vermelho h2.secao { color: #fff; }
+  .sub { font-size: 14px; color: var(--suave); line-height: 1.5; }
+  .verde .sub, .vermelho .sub { color: rgba(255,255,255,.8); }
+  .cab { padding: 18px 32px 14px; }
+  .enfeite { color: var(--ouro); font-size: 12px; letter-spacing: .3em; margin-bottom: 4px; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 100px; font-weight: 800; font-size: 13px; padding: 10px 18px; background: var(--vermelho); color: #fff; }
+  .btn svg { width: 15px; height: 15px; fill: currentColor; }
+  .btn.ouro { background: var(--ouro); color: var(--verde-escuro); }
+  .btn.grande { font-size: 16px; padding: 15px 28px; }
+  .btn.cheio { width: 100%; }
+
+  .preco { color: var(--vermelho); font-weight: 800; white-space: nowrap; }
+  .precos { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .precos li { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; font-weight: 700; border-bottom: 1px dashed var(--borda); padding-bottom: 5px; }
+  .precos li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .sabores { list-style: none; display: flex; flex-wrap: wrap; gap: 5px; }
+  .sabores li { font-size: 11.5px; font-weight: 800; background: var(--verde-claro); color: var(--verde); padding: 4px 10px; border-radius: 100px; }
+  .info { font-size: 12.5px; font-weight: 800; color: var(--verde); }
+  .desc { font-size: 13px; line-height: 1.5; color: var(--suave); }
+
+  /* produto em destaque (foto grande) */
+  .destaque { margin: 0 32px; background: var(--branco); border: 1px solid var(--borda); border-radius: 20px; overflow: hidden; box-shadow: 0 6px 20px rgba(74,48,39,.08); }
+  .destaque img { width: 100%; height: 330px; object-fit: cover; }
+  .destaque .corpo { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 9px; }
+  .destaque h3 { font-size: 24px; color: var(--marrom); line-height: 1.1; }
+
+  /* linha de produto (foto à esquerda) */
+  .linhas { padding: 0 32px; display: flex; flex-direction: column; gap: 12px; }
+  .linha { display: flex; background: var(--branco); border: 1px solid var(--borda); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 14px rgba(74,48,39,.06); }
+  .linha img { width: 168px; flex-shrink: 0; object-fit: cover; }
+  .linha .corpo { padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .linha h3 { font-size: 18px; color: var(--marrom); line-height: 1.15; }
+  .linha .btn { align-self: flex-start; padding: 8px 14px; font-size: 12px; margin-top: 2px; }
+
+  /* grade 2x2 */
+  .grade { padding: 0 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mini { background: var(--branco); border: 1px solid var(--borda); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+  .mini img { width: 100%; height: 170px; object-fit: cover; }
+  .mini .corpo { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .mini h3 { font-size: 15.5px; color: var(--marrom); line-height: 1.15; }
+  .mini .btn { margin-top: auto; padding: 8px 10px; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<!-- 1. CAPA -->
+<section class="pag verde">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 36px 0;gap:14px">
+    <img src="../imgs/logo.png" alt="Amor Doce" style="height:76px;filter:brightness(0) invert(1);opacity:.95">
+    <p class="tag" style="margin-top:10px">Confeitaria artesanal · Balneário Camboriú</p>
+    <h1 style="font-size:64px;line-height:1;margin-top:4px">Menu de<br><em style="font-style:italic;font-weight:600;color:var(--ouro-claro)">Natal</em></h1>
+    <p style="font-family:'Playfair Display',serif;font-size:30px;color:var(--ouro)">2026</p>
+  </div>
+  <div style="position:relative;height:420px;margin:10px 30px 0">
+    <img src="img/guirlanda-brownie.jpg" alt="" style="position:absolute;left:0;bottom:24px;width:220px;height:270px;object-fit:cover;border-radius:18px;border:5px solid #fff;transform:rotate(-5deg);box-shadow:0 14px 34px rgba(0,0,0,.35)">
+    <img src="img/bolo-natalino.jpg" alt="" style="position:absolute;right:0;top:0;width:290px;height:350px;object-fit:cover;border-radius:18px;border:5px solid var(--ouro-claro);transform:rotate(3deg);box-shadow:0 14px 34px rgba(0,0,0,.35)">
+  </div>
+  <div class="rodape" style="justify-content:center;padding-top:18px">Encomendas para retirada no dia 24/12</div>
+</section>
+
+<!-- 2. INFORMAÇÕES -->
+<section class="pag">
+  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Informações</span></div>
+  <div class="cab"><p class="enfeite">✦ ✦ ✦</p><p class="tag">Antes de encomendar</p><h2 class="secao">Como funcionam as encomendas</h2></div>
+  <div style="padding:0 32px;display:flex;flex-direction:column;gap:10px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="background:var(--verde);color:#fff;border-radius:16px;padding:16px"><p style="font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro)">Retirada</p><p style="font-family:'Playfair Display',serif;font-size:32px;line-height:1.05;margin-top:4px">24/12</p><p style="font-size:12.5px;opacity:.85;margin-top:4px">Não abriremos nos dias 25 e 26</p></div>
+      <div style="background:var(--vermelho);color:#fff;border-radius:16px;padding:16px"><p style="font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro-claro)">Horário</p><p style="font-family:'Playfair Display',serif;font-size:32px;line-height:1.05;margin-top:4px">12h às 16h</p><p style="font-size:12.5px;opacity:.85;margin-top:4px">Com agendamento de horário</p></div>
+    </div>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:9px">
+      <li style="background:var(--branco);border:1px solid var(--borda);border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.45"><b style="color:var(--marrom)">Não trabalhamos com entrega.</b> A retirada é na loja.</li>
+      <li style="background:var(--branco);border:1px solid var(--borda);border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.45"><b style="color:var(--marrom)">Pagamento 100% via pix antecipado</b> no ato do pedido. Consulte a taxa para pagamento no cartão de crédito.</li>
+      <li style="background:var(--branco);border:1px solid var(--borda);border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.45"><b style="color:var(--marrom)">Cardápio disponível até esgotar</b> a nossa capacidade de produção.</li>
+      <li style="background:var(--branco);border:1px solid var(--borda);border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.45"><b style="color:var(--marrom)">Lembrancinhas do cardápio</b> disponíveis apenas no período de 8 a 18/12.</li>
+      <li style="background:var(--branco);border:1px solid var(--borda);border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.45"><b style="color:var(--marrom)">Não estamos atendendo</b> pedidos corporativos.</li>
+    </ul>
+    <div style="margin-top:4px;background:var(--ouro-claro);border-radius:14px;padding:12px 14px;font-size:13.5px;font-weight:700;color:var(--marrom);text-align:center">Rua 3000, 445 · Centro · Balneário Camboriú</div>
+  </div>
+  <div class="rodape"><span>Menu de Natal 2026</span><span>Amor Doce</span></div>
+</section>
+
+<!-- 3. COMBO -->
+<section class="pag vermelho">
+  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Combo promocional</span></div>
+  <div class="cab"><p class="tag">Válido para pedidos até 28/11</p><h2 class="secao" style="font-size:34px">Bolo Natalino 10 fatias + Empadão de Frango 10 fatias</h2></div>
+  <div style="padding:0 32px"><img src="img/combo-bolo-natalino-empadao.jpg" alt="Bolo natalino e empadão" style="width:100%;height:400px;object-fit:cover;border-radius:20px;border:5px solid rgba(255,255,255,.9);box-shadow:0 16px 40px rgba(0,0,0,.28)"></div>
+  <div style="padding:18px 32px 0;display:flex;flex-direction:column;gap:8px">
+    <p style="font-size:14.5px;color:rgba(255,255,255,.9)">Bolo Natalino no sabor dois amores + Empadão de Frango 10 fatias.</p>
+    <p style="display:flex;align-items:baseline;gap:14px"><s style="font-size:18px;color:rgba(255,255,255,.65)">De R$ 340,00</s><b style="font-family:'Playfair Display',serif;font-size:46px;color:var(--ouro-claro);line-height:1">R$ 299,00</b></p>
+    <p style="font-size:12.5px;color:rgba(255,255,255,.78)">Promocional válido para pedidos feitos até 28/11 com confirmação de pagamento. Para retirada dia 24/12.</p>
+    <a class="btn ouro grande cheio" style="margin-top:8px" href="#" data-produto="o combo promocional (Bolo Natalino 10 fatias dois amores + Empadão de Frango 10 fatias) por R$ 299,00">WAICON Garantir meu combo</a>
+  </div>
+  <div class="rodape"><span>Menu de Natal 2026</span><span>Amor Doce</span></div>
+</section>
+
+<!-- 4. BOLO NATALINO -->
+<section class="pag">
+  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Bolos e docinhos</span></div>
+  <div class="cab"><p class="enfeite">✦ ✦ ✦</p><p class="tag">Para o centro da mesa</p><h2 class="secao">Bolo Natalino</h2></div>
+  <div class="destaque">
+    <img src="img/bolo-natalino.jpg" alt="Bolo natalino" style="height:360px">
+    <div class="corpo">
+      <ul class="precos">
+        <li><span>10 fatias (1 kg)</span><span class="preco">R$ 200,00</span></li>
+        <li><span>14 fatias (1,5 kg)</span><span class="preco">R$ 260,00</span></li>
+        <li><span>18 fatias (2 kg)</span><span class="preco">R$ 330,00</span></li>
+      </ul>
+      <p class="info" style="margin-top:4px">Sabores</p>
+      <ul class="sabores"><li>Dois amores</li><li>Ouro branco com nutella</li><li>Nozes e doce de leite</li><li>Quatro leites com frutas vermelhas</li></ul>
+      <a class="btn cheio" style="margin-top:6px" href="#" data-produto="o Bolo Natalino">WAICON Encomendar bolo natalino</a>
+    </div>
+  </div>
+  <div class="rodape"><span>Menu de Natal 2026</span><span>Amor Doce</span></div>
+</section>
+
+<!-- 5. GUIRLANDA + CAIXA 50 -->
+<section class="pag">
+  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Bolos e docinhos</span></div>
+  <div class="cab" style="padding-bottom:10px"><p class="tag">Para servir ou presentear</p></div>
+  <div class="linhas">
+    <div class="linha" style="height:300px">
+      <img src="img/guirlanda-brownie.jpg" alt="Guirlanda brownie">
+      <div class="corpo">
+        <h3>Guirlanda Brownie</h3>
+        <p class="info">Tamanho 20 cm</p>
+        <ul class="precos" style="margin-top:4px"><li><span>Guirlanda</span><span class="preco">R$ 190,00</span></li></ul>
+        <a class="btn" href="#" data-produto="a Guirlanda Brownie (R$ 190,00)">WAICON Encomendar</a>
+      </div>
+    </div>
+    <div class="linha" style="height:440px">
+      <img src="img/caixa-50-docinhos.jpg" alt="Caixa com 50 docinhos">
+      <div class="corpo">
+        <h3>Caixa 50 Docinhos</h3>
+        <p class="info">Tamanho vitrine (30 g)</p>
+        <p class="desc">Caixa natalina presenteável. Caixa mista (5 sabores) ou escolha até 2 sabores.</p>
+        <ul class="sabores"><li>Nozes</li><li>Ferrero rocher</li><li>Tradicional</li><li>Ninho com nutella</li><li>Beijinho</li></ul>
+        <ul class="precos" style="margin-top:4px"><li><span>50 docinhos</span><span class="preco">R$ 260,00</span></li></ul>
+        <a class="btn" href="#" data-produto="a Caixa 50 Docinhos (R$ 260,00)">WAICON Encomendar</a>
+      </div>
+    </div>
+  </div>
+  <div class="rodape"><span>Menu de Natal 2026</span><span>Amor Doce</span></div>
+</section>
+
+<!-- 6. SOBREMESAS: TAÇAS -->
+<section class="pag">
+  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Sobremesas</span></div>
+  <div class="cab"><p class="enfeite">✦ ✦ ✦</p><p class="tag">Para a hora da sobremesa</p><h2 class="secao">Sobremesas</h2></div>
+  <div class="linhas">
+    <div class="linha" style="height:228px">
+      <img src="img/tacas-bombom-uva-e-morango.jpg" alt="Taças bombom de uva e morango">
+      <div class="corpo">
+        <h3>Taça Bombom de Uva ou Morango</h3>
+        <p class="info">1,3 kg · serve 12 porções</p>
+        <p class="desc">Brigadeiro cremoso de chocolate branco, uva ou morangos frescos e ganache de chocolate meio amargo.</p>
+        <ul class="precos"><li><span>Taça</span><span class="preco">R$ 220,00</span></li></ul>
+        <a class="btn" href="#" data-produto="a Taça Bombom (uva ou morango) de 1,3 kg (R$ 220,00)">WAICON Encomendar</a>
+      </div>
+    </div>
+    <div class="linha" style="height:218px">
+      <img src="img/taca-nozes-supreme.jpg" alt="Taça nozes supreme">
+      <div class="corpo">
+        <h3>Taça Nozes Supreme</h3>
+        <p class="info">1,3 kg · serve 12 porções</p>
+        <p class="desc">Brigadeiro cremoso de nozes, mousse de leite ninho e brigadeiro cremoso de doce de leite.</p>
+        <ul class="precos"><li><span>Taça</span><span class="preco">R$ 260,00</span></li></ul>
+        <a class="btn" href="#" data-produto="a Taça Nozes Supreme (R$ 260,00)">WAICON Encomendar</a>
+      </div>
+    </div>
+    <div class="linha" style="height:248px">
+      <img src="img/taca-ambrosia.jpg" alt="Taça ambrosia">
+      <div class="corpo">
+        <h3>Taça Ambrosia</h3>
+        <p class="info">1,2 kg · serve 10 porções</p>
+        <p class="desc">Sobremesa tradicional feita com leite, ovos e açúcar, cozidos lentamente até formar uma textura macia e uma deliciosa calda caramelizada, com um toque de canela.</p>
+        <ul class="precos"><li><span>Taça</span><span class="preco">R$ 160,00</span></li></ul>
+        <a class="btn" href="#" data-produto="a Taça Ambrosia (R$ 160,00)">WAICON Encomendar</a>
+      </div>
+    </div>
+  </div>
+  <div class="rodape"><span>Menu de Natal 2026</span><span>Amor Doce</span></div>
+</section>
+
+<!-- 7. TRAVESSAS -->
+<section class="pag verde">
+  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Sobremesas</span></div>
+  <div class="cab"><p class="tag">Travessas de 700 g</p><h2 class="secao">Sobremesas na travessa</h2><p class="sub">A taça bombom também vem na travessa de 700 g: bombom de uva e bombom de morango.</p></div>
+  <div class="grade">
+    <div class="mini" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);color:#fff"><img src="img/travessa-ouro-branco.jpg" alt="Ouro branco" style="height:250px"><div class="corpo"><h3 style="color:#fff">Ouro branco</h3><p style="font-size:13px;font-weight:700">700 g · <span style="color:var(--ouro-claro)">R$ 80,00</span></p><a class="btn ouro" href="#" data-produto="a travessa Ouro Branco 700 g (R$ 80,00)">WAICON Encomendar</a></div></div>
+    <div class="mini" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);color:#fff"><img src="img/travessa-abacaxi-com-coco.jpg" alt="Abacaxi com coco" style="height:250px"><div class="corpo"><h3 style="color:#fff">Abacaxi com coco</h3><p style="font-size:13px;font-weight:700">700 g · <span style="color:var(--ouro-claro)">R$ 80,00</span></p><a class="btn ouro" href="#" data-produto="a travessa Abacaxi com Coco 700 g (R$ 80,00)">WAICON Encomendar</a></div></div>
+    <div class="mini" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);color:#fff"><img src="img/travessa-nozes-doce-de-leite.jpg" alt="Nozes e doce de leite" style="height:250px"><div class="corpo"><h3 style="color:#fff">Nozes e doce de leite</h3><p style="font-size:13px;font-weight:700">700 g · <span style="color:var(--ouro-claro)">R$ 90,00</span></p><a class="btn ouro" href="#" data-produto="a travessa Nozes e Doce de Leite 700 g (R$ 90,00)">WAICON Encomendar</a></div></div>
+    <div class="mini" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);color:#fff"><img src="img/tacas-bombom-uva-e-morango-cena.jpg" alt="Bombom de uva e de morango" style="height:250px"><div class="corpo"><h3 style="color:#fff">Bombom de uva ou morango</h3><p style="font-size:13px;font-weight:700">700 g · <span style="color:var(--ouro-claro)">R$ 80,00</span></p><a class="btn ouro" href="#" data-produto="a travessa Bombom (uva ou morango) 700 g (R$ 80,00)">WAICON Encomendar</a></div></div>
+  </div>
+  <div class="rodape"><span>Menu de Natal 2026</span><span>Amor Doce</span></div>
+</section>
+
+<!-- 8. LEMBRANCINHAS -->
+<section class="pag">
+  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Lembrancinhas</span></div>
+  <div class="cab" style="padding-bottom:10px"><p class="enfeite">✦ ✦ ✦</p><p class="tag">Para presentear</p><h2 class="secao">Lembrancinhas</h2><p style="display:inline-block;margin-top:6px;background:var(--ouro-claro);color:var(--marrom);font-weight:800;font-size:13px;padding:7px 14px;border-radius:100px">Encomenda e retirada do dia 8 ao dia 18/12</p></div>
+  <div class="grade">
+    <div class="mini"><img src="img/card-natalino.jpg" alt="Card natalino" style="height:180px"><div class="corpo"><h3>Card Natalino</h3><p class="preco" style="font-size:15px">R$ 8,50</p><a class="btn" href="#" data-produto="o Card Natalino (R$ 8,50 a unidade), para retirada entre 8 e 18/12">WAICON Encomendar</a></div></div>
+    <div class="mini"><img src="img/caixa-4-docinhos.jpg" alt="Caixa com 4 docinhos" style="height:180px"><div class="corpo"><h3>Caixa com 4 Docinhos</h3><p class="preco" style="font-size:15px">R$ 24,00</p><a class="btn" href="#" data-produto="a Caixa com 4 Docinhos (R$ 24,00), para retirada entre 8 e 18/12">WAICON Encomendar</a></div></div>
+    <div class="mini"><img src="img/brownie.jpg" alt="Brownie" style="height:180px"><div class="corpo"><h3>Brownie</h3><p class="preco" style="font-size:15px">R$ 15,00</p><a class="btn" href="#" data-produto="o Brownie natalino (R$ 15,00), para retirada entre 8 e 18/12">WAICON Encomendar</a></div></div>
+    <div class="mini"><img src="img/bolo-cenoura-natalino.jpg" alt="Bolo de cenoura natalino" style="height:180px"><div class="corpo"><h3>Bolo de Cenoura Natalino (250 g)</h3><p class="preco" style="font-size:15px">R$ 35,00</p><a class="btn" href="#" data-produto="o Bolo de Cenoura Natalino 250 g (R$ 35,00), para retirada entre 8 e 18/12">WAICON Encomendar</a></div></div>
+  </div>
+  <div class="rodape"><span>Menu de Natal 2026</span><span>Amor Doce</span></div>
+</section>
+
+<!-- 9. SALGADOS: EMPADÃO E TORTAS -->
+<section class="pag">
+  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Salgados</span></div>
+  <div class="cab"><p class="enfeite">✦ ✦ ✦</p><p class="tag">Para a ceia</p><h2 class="secao">Salgados</h2></div>
+  <div class="linhas">
+    <div class="linha" style="height:230px">
+      <img src="img/empadao-ceia.jpg" alt="Empadão">
+      <div class="corpo">
+        <h3>Empadão</h3>
+        <ul class="sabores"><li>Frango</li><li>Carne</li><li>Calabresa</li></ul>
+        <ul class="precos"><li><span>700 g (5 fatias)</span><span class="preco">R$ 70,00</span></li><li><span>1,4 kg (10 fatias)</span><span class="preco">R$ 140,00</span></li></ul>
+        <a class="btn" href="#" data-produto="o Empadão">WAICON Encomendar</a>
+      </div>
+    </div>
+    <div class="linha" style="height:208px">
+      <img src="img/torta-fria-frango.jpg" alt="Torta fria de frango">
+      <div class="corpo">
+        <h3>Torta Fria de Frango</h3>
+        <ul class="precos"><li><span>5 fatias</span><span class="preco">R$ 90,00</span></li><li><span>10 fatias</span><span class="preco">R$ 180,00</span></li></ul>
+        <a class="btn" href="#" data-produto="a Torta Fria de Frango">WAICON Encomendar</a>
+      </div>
+    </div>
+    <div class="linha" style="height:208px">
+      <img src="img/torta-fria-legumes.jpg" alt="Torta fria de legumes">
+      <div class="corpo">
+        <h3>Torta Fria de Legumes</h3>
+        <ul class="precos"><li><span>5 fatias</span><span class="preco">R$ 100,00</span></li><li><span>10 fatias</span><span class="preco">R$ 200,00</span></li></ul>
+        <a class="btn" href="#" data-produto="a Torta Fria de Legumes">WAICON Encomendar</a>
+      </div>
+    </div>
+  </div>
+  <div class="rodape"><span>Menu de Natal 2026</span><span>Amor Doce</span></div>
+</section>
+
+<!-- 10. SALGADOS: MOUSSES -->
+<section class="pag">
+  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Salgados</span></div>
+  <div class="cab" style="padding-bottom:10px"><p class="tag">Ideal para servir de entrada</p><h2 class="secao" style="font-size:34px">Mousse Salgada de Atum</h2></div>
+  <div class="destaque">
+    <img src="img/mousse-salgada-atum.jpg" alt="Mousse salgada de atum" style="height:300px">
+    <div class="corpo">
+      <p class="desc">Ideal para servir de entrada ou com torradinhas.</p>
+      <ul class="precos"><li><span>Mousse inteira</span><span class="preco">R$ 180,00</span></li></ul>
+      <a class="btn cheio" href="#" data-produto="a Mousse Salgada de Atum inteira (R$ 180,00)">WAICON Encomendar mousse inteira</a>
+    </div>
+  </div>
+  <div class="linhas" style="margin-top:12px">
+    <div class="linha" style="height:170px">
+      <img src="img/mousse-salgada-atum-individual.jpg" alt="Mousse de atum individual">
+      <div class="corpo">
+        <h3>Mousse Salgada Atum individual</h3>
+        <p class="info">Peso aprox. 120 g · 1 porção</p>
+        <ul class="precos"><li><span>Porção</span><span class="preco">R$ 25,00</span></li></ul>
+        <a class="btn" href="#" data-produto="a Mousse de Atum individual (R$ 25,00)">WAICON Encomendar</a>
+      </div>
+    </div>
+  </div>
+  <div class="rodape"><span>Menu de Natal 2026</span><span>Amor Doce</span></div>
+</section>
+
+<!-- 11. ENCERRAMENTO -->
+<section class="pag verde">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 40px 0;gap:16px">
+    <img src="../imgs/logo.png" alt="Amor Doce" style="height:64px;filter:brightness(0) invert(1);opacity:.95">
+    <p class="tag" style="margin-top:8px">Natal 2026</p>
+    <h2 style="font-size:40px;line-height:1.1">Garanta o doce da sua <em style="color:var(--ouro-claro);font-weight:600">ceia de Natal</em></h2>
+    <p style="font-size:15px;color:rgba(255,255,255,.82);line-height:1.6">Cardápio válido para encomendas de Natal, com retirada no dia 24/12 e disponível até esgotar a nossa capacidade de produção.</p>
+    <a class="btn ouro grande" style="margin-top:8px" href="#" data-produto="">WAICON Fazer minha encomenda</a>
+    <div style="margin-top:22px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:16px 18px;font-size:14.5px;font-weight:700;line-height:1.5;width:100%">Para o Ano Novo teremos cardápio liberado para encomendas a partir do dia <span style="color:var(--ouro-claro)">06/12</span>.</div>
+    <div style="margin-top:6px;font-size:13.5px;line-height:1.7;color:rgba(255,255,255,.75)">
+      Rua 3000, 445 · Centro · Balneário Camboriú - SC<br>
+      WhatsApp (47) 99148-9325 · <a href="https://www.instagram.com/amordocebc/" style="color:var(--ouro-claro)">@amordocebc</a><br>
+      <a href="https://mggastal.github.io/amordoce/natal/" style="color:var(--ouro-claro)">Ver o cardápio no site</a>
+    </div>
+  </div>
+  <div class="rodape" style="justify-content:center;padding-top:20px">Obrigada e Feliz Natal!</div>
+</section>
+
+<script>
+  const WA = "5547991489325";
+  const ICONE = '<svg viewBox="0 0 24 24"><path d="M12.001 2C6.478 2 2 6.478 2 12.001c0 1.788.475 3.47 1.302 4.924L2 22l5.232-1.278A9.947 9.947 0 0012.001 22C17.523 22 22 17.522 22 12.001 22 6.478 17.523 2 12.001 2zm4.994 13.986c-.214.601-1.246 1.147-1.714 1.196-.424.044-.96.063-1.549-.097-.358-.1-.817-.234-1.401-.457-2.458-.961-4.059-3.405-4.184-3.563-.122-.158-.991-1.316-.991-2.509 0-1.194.625-1.782.846-2.026.222-.244.483-.304.644-.304.16 0 .322.001.464.008.148.007.348-.056.545.416.203.486.689 1.677.749 1.8.061.123.1.267.02.43-.08.162-.122.263-.241.405-.12.142-.252.317-.359.424-.12.119-.245.25-.105.49.14.242.622 1.027 1.335 1.664.917.817 1.69 1.069 1.932 1.19.242.12.383.1.524-.06.142-.162.609-.71.77-.954.162-.243.325-.202.547-.122.222.08 1.41.666 1.652.787.243.122.402.182.463.283.06.102.06.588-.154 1.189z"/></svg>';
+  document.querySelectorAll("a[data-produto]").forEach(a => {
+    const p = a.dataset.produto;
+    const msg = p ? `Olá! Vi o Menu de Natal e quero encomendar ${p}.` : "Olá! Vi o Menu de Natal e quero fazer uma encomenda.";
+    a.href = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+    a.innerHTML = a.innerHTML.replace("WAICON", ICONE);
+  });
+</script>
+</body>
+</html>
