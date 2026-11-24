@@ -54,6 +54,10 @@
   .btn-vermelho:hover { background: var(--vermelho-escuro); }
   .btn-ouro { background: var(--ouro); color: var(--verde-escuro); box-shadow: 0 8px 22px rgba(201,162,74,0.35); }
   .btn-sm { padding: 10px 20px; font-size: 14px; }
+  .btn-contorno { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.55); }
+  .btn-contorno:hover { border-color: #fff; }
+  .btn-contorno-escuro { background: transparent; color: var(--verde); border: 2px solid var(--verde); }
+  .hero-botoes { display: flex; flex-wrap: wrap; gap: 12px; }
   .btn-lg { padding: 17px 34px; font-size: 17px; }
   .btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
   .menu-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 6px; }
@@ -294,10 +298,13 @@
       <p class="tag">Confeitaria artesanal · Balneário Camboriú</p>
       <h1>Menu de Natal <em>Amor Doce</em> 2026</h1>
       <p class="lead">Bolo natalino, guirlanda de brownie, taças de sobremesa, docinhos e salgados para a sua ceia. Tudo feito à mão, para retirada no dia 24 de dezembro.</p>
+      <div class="hero-botoes">
       <a href="#" class="btn btn-ouro btn-lg js-wa" data-produto="">
         <svg viewBox="0 0 24 24"><path d="M12.001 2C6.478 2 2 6.478 2 12.001c0 1.788.475 3.47 1.302 4.924L2 22l5.232-1.278A9.947 9.947 0 0012.001 22C17.523 22 22 17.522 22 12.001 22 6.478 17.523 2 12.001 2zm4.994 13.986c-.214.601-1.246 1.147-1.714 1.196-.424.044-.96.063-1.549-.097-.358-.1-.817-.234-1.401-.457-2.458-.961-4.059-3.405-4.184-3.563-.122-.158-.991-1.316-.991-2.509 0-1.194.625-1.782.846-2.026.222-.244.483-.304.644-.304.16 0 .322.001.464.008.148.007.348-.056.545.416.203.486.689 1.677.749 1.8.061.123.1.267.02.43-.08.162-.122.263-.241.405-.12.142-.252.317-.359.424-.12.119-.245.25-.105.49.14.242.622 1.027 1.335 1.664.917.817 1.69 1.069 1.932 1.19.242.12.383.1.524-.06.142-.162.609-.71.77-.954.162-.243.325-.202.547-.122.222.08 1.41.666 1.652.787.243.122.402.182.463.283.06.102.06.588-.154 1.189z"/></svg>
         Fazer minha encomenda
       </a>
+      <a href="Menu_Natal_Amor_Doce_2026.pdf" download class="btn btn-contorno btn-lg"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg> Baixar cardápio</a>
+      </div>
       <ul class="hero-pontos">
         <li>Retirada dia 24/12</li>
         <li>Das 12h às 16h, com horário agendado</li>
@@ -584,7 +591,10 @@
         <p class="tag">Antes de encomendar</p>
         <h2>Como funcionam as encomendas de Natal</h2>
         <p>Faça seu pedido pelo WhatsApp e garanta seu horário de retirada. O cardápio fica disponível até esgotar a nossa capacidade de produção.</p>
-        <a href="#" class="btn btn-vermelho btn-lg js-wa" data-produto="">Fazer minha encomenda</a>
+        <div class="hero-botoes">
+          <a href="#" class="btn btn-vermelho btn-lg js-wa" data-produto="">Fazer minha encomenda</a>
+          <a href="Menu_Natal_Amor_Doce_2026.pdf" download class="btn btn-contorno-escuro btn-lg"><svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg> Baixar cardápio em PDF</a>
+        </div>
       </div>
       <div>
         <ul class="regras">
@@ -610,6 +620,7 @@
     <svg viewBox="0 0 24 24"><path d="M12.001 2C6.478 2 2 6.478 2 12.001c0 1.788.475 3.47 1.302 4.924L2 22l5.232-1.278A9.947 9.947 0 0012.001 22C17.523 22 22 17.522 22 12.001 22 6.478 17.523 2 12.001 2zm4.994 13.986c-.214.601-1.246 1.147-1.714 1.196-.424.044-.96.063-1.549-.097-.358-.1-.817-.234-1.401-.457-2.458-.961-4.059-3.405-4.184-3.563-.122-.158-.991-1.316-.991-2.509 0-1.194.625-1.782.846-2.026.222-.244.483-.304.644-.304.16 0 .322.001.464.008.148.007.348-.056.545.416.203.486.689 1.677.749 1.8.061.123.1.267.02.43-.08.162-.122.263-.241.405-.12.142-.252.317-.359.424-.12.119-.245.25-.105.49.14.242.622 1.027 1.335 1.664.917.817 1.69 1.069 1.932 1.19.242.12.383.1.524-.06.142-.162.609-.71.77-.954.162-.243.325-.202.547-.122.222.08 1.41.666 1.652.787.243.122.402.182.463.283.06.102.06.588-.154 1.189z"/></svg>
     Quero fazer minha encomenda
   </a>
+  <p style="margin:22px auto 0;font-size:15px"><a href="Menu_Natal_Amor_Doce_2026.pdf" download style="color:var(--ouro-claro);font-weight:800">Baixar o cardápio completo em PDF</a></p>
 </section>
 
 <!-- LOJA -->

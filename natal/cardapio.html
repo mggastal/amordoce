@@ -10,7 +10,7 @@
     --verde: #1F4A3A; --verde-escuro: #15362A; --verde-claro: #E7F0EA;
     --vermelho: #B23A33; --ouro: #C9A24A; --ouro-claro: #F3E7C6;
     --creme: #FBF6F0; --branco: #FFFDFA; --marrom: #4A3027; --texto: #3A2A24; --suave: #7E6A62;
-    --borda: rgba(74,48,39,0.12);
+    --borda: #E6DED8;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: var(--creme); }
@@ -23,20 +23,17 @@
 
   /* moldura com pontinhos de neve nas páginas verdes */
   .verde { background: var(--verde); color: #fff; }
-  .verde::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.10) 1.5px, transparent 1.6px), radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1.1px); background-size: 40px 40px, 20px 20px; background-position: 0 0, 10px 14px; }
   .verde > * { position: relative; }
   .vermelho { background: var(--vermelho); color: #fff; }
-  .vermelho::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, rgba(255,255,255,0.05) 0 16px, transparent 16px 32px); }
   .vermelho > * { position: relative; }
 
   /* cabeçalho e rodapé de página */
   .topo { display: flex; justify-content: space-between; align-items: center; padding: 26px 32px 0; }
   .topo img { height: 34px; }
-  .verde .topo img, .vermelho .topo img { filter: brightness(0) invert(1); opacity: .92; }
   .topo span { font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--vermelho); }
   .verde .topo span, .vermelho .topo span { color: var(--ouro-claro); }
   .rodape { margin-top: auto; padding: 0 32px 22px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: var(--suave); }
-  .verde .rodape, .vermelho .rodape { color: rgba(255,255,255,.6); }
+  .verde .rodape, .vermelho .rodape { color: #A5B7B0; }
 
   .tag { font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--vermelho); }
   .verde .tag, .vermelho .tag { color: var(--ouro); }
@@ -44,7 +41,7 @@
   h2.secao { font-size: 40px; color: var(--verde); line-height: 1.05; margin: 6px 0 6px; }
   .verde h2.secao, .vermelho h2.secao { color: #fff; }
   .sub { font-size: 14px; color: var(--suave); line-height: 1.5; }
-  .verde .sub, .vermelho .sub { color: rgba(255,255,255,.8); }
+  .verde .sub, .vermelho .sub { color: #D2DBD8; }
   .cab { padding: 18px 32px 14px; }
   .enfeite { color: var(--ouro); font-size: 12px; letter-spacing: .3em; margin-bottom: 4px; }
 
@@ -64,14 +61,14 @@
   .desc { font-size: 13px; line-height: 1.5; color: var(--suave); }
 
   /* produto em destaque (foto grande) */
-  .destaque { margin: 0 32px; background: var(--branco); border: 1px solid var(--borda); border-radius: 20px; overflow: hidden; box-shadow: 0 6px 20px rgba(74,48,39,.08); }
+  .destaque { margin: 0 32px; background: var(--branco); border: 1px solid var(--borda); border-radius: 20px; overflow: hidden; }
   .destaque img { width: 100%; height: 330px; object-fit: cover; }
   .destaque .corpo { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 9px; }
   .destaque h3 { font-size: 24px; color: var(--marrom); line-height: 1.1; }
 
   /* linha de produto (foto à esquerda) */
   .linhas { padding: 0 32px; display: flex; flex-direction: column; gap: 12px; }
-  .linha { display: flex; background: var(--branco); border: 1px solid var(--borda); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 14px rgba(74,48,39,.06); }
+  .linha { display: flex; background: var(--branco); border: 1px solid var(--borda); border-radius: 16px; overflow: hidden; }
   .linha img { width: 168px; flex-shrink: 0; object-fit: cover; }
   .linha .corpo { padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
   .linha h3 { font-size: 18px; color: var(--marrom); line-height: 1.15; }
@@ -91,26 +88,26 @@
 <!-- 1. CAPA -->
 <section class="pag verde">
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 36px 0;gap:14px">
-    <img src="../imgs/logo.png" alt="Amor Doce" style="height:76px;filter:brightness(0) invert(1);opacity:.95">
+    <img src="img/logo-branca-verde.jpg" alt="Amor Doce" style="height:76px">
     <p class="tag" style="margin-top:10px">Confeitaria artesanal · Balneário Camboriú</p>
     <h1 style="font-size:64px;line-height:1;margin-top:4px">Menu de<br><em style="font-style:italic;font-weight:600;color:var(--ouro-claro)">Natal</em></h1>
     <p style="font-family:'Playfair Display',serif;font-size:30px;color:var(--ouro)">2026</p>
   </div>
   <div style="position:relative;height:420px;margin:10px 30px 0">
-    <img src="img/guirlanda-brownie.jpg" alt="" style="position:absolute;left:0;bottom:24px;width:220px;height:270px;object-fit:cover;border-radius:18px;border:5px solid #fff;transform:rotate(-5deg);box-shadow:0 14px 34px rgba(0,0,0,.35)">
-    <img src="img/bolo-natalino.jpg" alt="" style="position:absolute;right:0;top:0;width:290px;height:350px;object-fit:cover;border-radius:18px;border:5px solid var(--ouro-claro);transform:rotate(3deg);box-shadow:0 14px 34px rgba(0,0,0,.35)">
+    <img src="img/guirlanda-brownie.jpg" alt="" style="position:absolute;left:0;bottom:24px;width:220px;height:270px;object-fit:cover;border-radius:18px;border:5px solid #fff;transform:rotate(-5deg);">
+    <img src="img/bolo-natalino.jpg" alt="" style="position:absolute;right:0;top:0;width:290px;height:350px;object-fit:cover;border-radius:18px;border:5px solid var(--ouro-claro);transform:rotate(3deg);">
   </div>
   <div class="rodape" style="justify-content:center;padding-top:18px">Encomendas para retirada no dia 24/12</div>
 </section>
 
 <!-- 2. INFORMAÇÕES -->
 <section class="pag">
-  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Informações</span></div>
+  <div class="topo"><img src="img/logo-cor-creme.jpg" alt=""><span>Informações</span></div>
   <div class="cab"><p class="enfeite">✦ ✦ ✦</p><p class="tag">Antes de encomendar</p><h2 class="secao">Como funcionam as encomendas</h2></div>
   <div style="padding:0 32px;display:flex;flex-direction:column;gap:10px">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div style="background:var(--verde);color:#fff;border-radius:16px;padding:16px"><p style="font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro)">Retirada</p><p style="font-family:'Playfair Display',serif;font-size:32px;line-height:1.05;margin-top:4px">24/12</p><p style="font-size:12.5px;opacity:.85;margin-top:4px">Não abriremos nos dias 25 e 26</p></div>
-      <div style="background:var(--vermelho);color:#fff;border-radius:16px;padding:16px"><p style="font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro-claro)">Horário</p><p style="font-family:'Playfair Display',serif;font-size:32px;line-height:1.05;margin-top:4px">12h às 16h</p><p style="font-size:12.5px;opacity:.85;margin-top:4px">Com agendamento de horário</p></div>
+      <div style="background:var(--verde);color:#fff;border-radius:16px;padding:16px"><p style="font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro)">Retirada</p><p style="font-family:'Playfair Display',serif;font-size:32px;line-height:1.05;margin-top:4px">24/12</p><p style="font-size:12.5px;color:#DCE4E0;margin-top:4px">Não abriremos nos dias 25 e 26</p></div>
+      <div style="background:var(--vermelho);color:#fff;border-radius:16px;padding:16px"><p style="font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro-claro)">Horário</p><p style="font-family:'Playfair Display',serif;font-size:32px;line-height:1.05;margin-top:4px">12h às 16h</p><p style="font-size:12.5px;color:#F1DCDA;margin-top:4px">Com agendamento de horário</p></div>
     </div>
     <ul style="list-style:none;display:flex;flex-direction:column;gap:9px">
       <li style="background:var(--branco);border:1px solid var(--borda);border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.45"><b style="color:var(--marrom)">Não trabalhamos com entrega.</b> A retirada é na loja.</li>
@@ -126,13 +123,13 @@
 
 <!-- 3. COMBO -->
 <section class="pag vermelho">
-  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Combo promocional</span></div>
+  <div class="topo"><img src="img/logo-branca-vermelho.jpg" alt=""><span>Combo promocional</span></div>
   <div class="cab"><p class="tag">Válido para pedidos até 28/11</p><h2 class="secao" style="font-size:34px">Bolo Natalino 10 fatias + Empadão de Frango 10 fatias</h2></div>
-  <div style="padding:0 32px"><img src="img/combo-bolo-natalino-empadao.jpg" alt="Bolo natalino e empadão" style="width:100%;height:400px;object-fit:cover;border-radius:20px;border:5px solid rgba(255,255,255,.9);box-shadow:0 16px 40px rgba(0,0,0,.28)"></div>
+  <div style="padding:0 32px"><img src="img/combo-bolo-natalino-empadao.jpg" alt="Bolo natalino e empadão" style="width:100%;height:400px;object-fit:cover;border-radius:20px;border:5px solid #F7EBEB;"></div>
   <div style="padding:18px 32px 0;display:flex;flex-direction:column;gap:8px">
-    <p style="font-size:14.5px;color:rgba(255,255,255,.9)">Bolo Natalino no sabor dois amores + Empadão de Frango 10 fatias.</p>
-    <p style="display:flex;align-items:baseline;gap:14px"><s style="font-size:18px;color:rgba(255,255,255,.65)">De R$ 340,00</s><b style="font-family:'Playfair Display',serif;font-size:46px;color:var(--ouro-claro);line-height:1">R$ 299,00</b></p>
-    <p style="font-size:12.5px;color:rgba(255,255,255,.78)">Promocional válido para pedidos feitos até 28/11 com confirmação de pagamento. Para retirada dia 24/12.</p>
+    <p style="font-size:14.5px;color:#F7EBEB">Bolo Natalino no sabor dois amores + Empadão de Frango 10 fatias.</p>
+    <p style="display:flex;align-items:baseline;gap:14px"><s style="font-size:18px;color:#E4BAB8">De R$ 340,00</s><b style="font-family:'Playfair Display',serif;font-size:46px;color:var(--ouro-claro);line-height:1">R$ 299,00</b></p>
+    <p style="font-size:12.5px;color:#EED4D2">Promocional válido para pedidos feitos até 28/11 com confirmação de pagamento. Para retirada dia 24/12.</p>
     <a class="btn ouro grande cheio" style="margin-top:8px" href="#" data-produto="o combo promocional (Bolo Natalino 10 fatias dois amores + Empadão de Frango 10 fatias) por R$ 299,00">WAICON Garantir meu combo</a>
   </div>
   <div class="rodape"><span>Menu de Natal 2026</span><span>Amor Doce</span></div>
@@ -140,7 +137,7 @@
 
 <!-- 4. BOLO NATALINO -->
 <section class="pag">
-  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Bolos e docinhos</span></div>
+  <div class="topo"><img src="img/logo-cor-creme.jpg" alt=""><span>Bolos e docinhos</span></div>
   <div class="cab"><p class="enfeite">✦ ✦ ✦</p><p class="tag">Para o centro da mesa</p><h2 class="secao">Bolo Natalino</h2></div>
   <div class="destaque">
     <img src="img/bolo-natalino.jpg" alt="Bolo natalino" style="height:360px">
@@ -160,7 +157,7 @@
 
 <!-- 5. GUIRLANDA + CAIXA 50 -->
 <section class="pag">
-  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Bolos e docinhos</span></div>
+  <div class="topo"><img src="img/logo-cor-creme.jpg" alt=""><span>Bolos e docinhos</span></div>
   <div class="cab" style="padding-bottom:10px"><p class="tag">Para servir ou presentear</p></div>
   <div class="linhas">
     <div class="linha" style="height:300px">
@@ -189,7 +186,7 @@
 
 <!-- 6. SOBREMESAS: TAÇAS -->
 <section class="pag">
-  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Sobremesas</span></div>
+  <div class="topo"><img src="img/logo-cor-creme.jpg" alt=""><span>Sobremesas</span></div>
   <div class="cab"><p class="enfeite">✦ ✦ ✦</p><p class="tag">Para a hora da sobremesa</p><h2 class="secao">Sobremesas</h2></div>
   <div class="linhas">
     <div class="linha" style="height:228px">
@@ -228,20 +225,20 @@
 
 <!-- 7. TRAVESSAS -->
 <section class="pag verde">
-  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Sobremesas</span></div>
+  <div class="topo"><img src="img/logo-branca-verde.jpg" alt=""><span>Sobremesas</span></div>
   <div class="cab"><p class="tag">Travessas de 700 g</p><h2 class="secao">Sobremesas na travessa</h2><p class="sub">A taça bombom também vem na travessa de 700 g: bombom de uva e bombom de morango.</p></div>
   <div class="grade">
-    <div class="mini" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);color:#fff"><img src="img/travessa-ouro-branco.jpg" alt="Ouro branco" style="height:250px"><div class="corpo"><h3 style="color:#fff">Ouro branco</h3><p style="font-size:13px;font-weight:700">700 g · <span style="color:var(--ouro-claro)">R$ 80,00</span></p><a class="btn ouro" href="#" data-produto="a travessa Ouro Branco 700 g (R$ 80,00)">WAICON Encomendar</a></div></div>
-    <div class="mini" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);color:#fff"><img src="img/travessa-abacaxi-com-coco.jpg" alt="Abacaxi com coco" style="height:250px"><div class="corpo"><h3 style="color:#fff">Abacaxi com coco</h3><p style="font-size:13px;font-weight:700">700 g · <span style="color:var(--ouro-claro)">R$ 80,00</span></p><a class="btn ouro" href="#" data-produto="a travessa Abacaxi com Coco 700 g (R$ 80,00)">WAICON Encomendar</a></div></div>
-    <div class="mini" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);color:#fff"><img src="img/travessa-nozes-doce-de-leite.jpg" alt="Nozes e doce de leite" style="height:250px"><div class="corpo"><h3 style="color:#fff">Nozes e doce de leite</h3><p style="font-size:13px;font-weight:700">700 g · <span style="color:var(--ouro-claro)">R$ 90,00</span></p><a class="btn ouro" href="#" data-produto="a travessa Nozes e Doce de Leite 700 g (R$ 90,00)">WAICON Encomendar</a></div></div>
-    <div class="mini" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);color:#fff"><img src="img/tacas-bombom-uva-e-morango-cena.jpg" alt="Bombom de uva e de morango" style="height:250px"><div class="corpo"><h3 style="color:#fff">Bombom de uva ou morango</h3><p style="font-size:13px;font-weight:700">700 g · <span style="color:var(--ouro-claro)">R$ 80,00</span></p><a class="btn ouro" href="#" data-produto="a travessa Bombom (uva ou morango) 700 g (R$ 80,00)">WAICON Encomendar</a></div></div>
+    <div class="mini" style="background:#2F5748;border-color:#3E6356;color:#fff"><img src="img/travessa-ouro-branco.jpg" alt="Ouro branco" style="height:250px"><div class="corpo"><h3 style="color:#fff">Ouro branco</h3><p style="font-size:13px;font-weight:700">700 g · <span style="color:var(--ouro-claro)">R$ 80,00</span></p><a class="btn ouro" href="#" data-produto="a travessa Ouro Branco 700 g (R$ 80,00)">WAICON Encomendar</a></div></div>
+    <div class="mini" style="background:#2F5748;border-color:#3E6356;color:#fff"><img src="img/travessa-abacaxi-com-coco.jpg" alt="Abacaxi com coco" style="height:250px"><div class="corpo"><h3 style="color:#fff">Abacaxi com coco</h3><p style="font-size:13px;font-weight:700">700 g · <span style="color:var(--ouro-claro)">R$ 80,00</span></p><a class="btn ouro" href="#" data-produto="a travessa Abacaxi com Coco 700 g (R$ 80,00)">WAICON Encomendar</a></div></div>
+    <div class="mini" style="background:#2F5748;border-color:#3E6356;color:#fff"><img src="img/travessa-nozes-doce-de-leite.jpg" alt="Nozes e doce de leite" style="height:250px"><div class="corpo"><h3 style="color:#fff">Nozes e doce de leite</h3><p style="font-size:13px;font-weight:700">700 g · <span style="color:var(--ouro-claro)">R$ 90,00</span></p><a class="btn ouro" href="#" data-produto="a travessa Nozes e Doce de Leite 700 g (R$ 90,00)">WAICON Encomendar</a></div></div>
+    <div class="mini" style="background:#2F5748;border-color:#3E6356;color:#fff"><img src="img/tacas-bombom-uva-e-morango-cena.jpg" alt="Bombom de uva e de morango" style="height:250px"><div class="corpo"><h3 style="color:#fff">Bombom de uva ou morango</h3><p style="font-size:13px;font-weight:700">700 g · <span style="color:var(--ouro-claro)">R$ 80,00</span></p><a class="btn ouro" href="#" data-produto="a travessa Bombom (uva ou morango) 700 g (R$ 80,00)">WAICON Encomendar</a></div></div>
   </div>
   <div class="rodape"><span>Menu de Natal 2026</span><span>Amor Doce</span></div>
 </section>
 
 <!-- 8. LEMBRANCINHAS -->
 <section class="pag">
-  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Lembrancinhas</span></div>
+  <div class="topo"><img src="img/logo-cor-creme.jpg" alt=""><span>Lembrancinhas</span></div>
   <div class="cab" style="padding-bottom:10px"><p class="enfeite">✦ ✦ ✦</p><p class="tag">Para presentear</p><h2 class="secao">Lembrancinhas</h2><p style="display:inline-block;margin-top:6px;background:var(--ouro-claro);color:var(--marrom);font-weight:800;font-size:13px;padding:7px 14px;border-radius:100px">Encomenda e retirada do dia 8 ao dia 18/12</p></div>
   <div class="grade">
     <div class="mini"><img src="img/card-natalino.jpg" alt="Card natalino" style="height:180px"><div class="corpo"><h3>Card Natalino</h3><p class="preco" style="font-size:15px">R$ 8,50</p><a class="btn" href="#" data-produto="o Card Natalino (R$ 8,50 a unidade), para retirada entre 8 e 18/12">WAICON Encomendar</a></div></div>
@@ -254,7 +251,7 @@
 
 <!-- 9. SALGADOS: EMPADÃO E TORTAS -->
 <section class="pag">
-  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Salgados</span></div>
+  <div class="topo"><img src="img/logo-cor-creme.jpg" alt=""><span>Salgados</span></div>
   <div class="cab"><p class="enfeite">✦ ✦ ✦</p><p class="tag">Para a ceia</p><h2 class="secao">Salgados</h2></div>
   <div class="linhas">
     <div class="linha" style="height:230px">
@@ -288,7 +285,7 @@
 
 <!-- 10. SALGADOS: MOUSSES -->
 <section class="pag">
-  <div class="topo"><img src="../imgs/logo.png" alt=""><span>Salgados</span></div>
+  <div class="topo"><img src="img/logo-cor-creme.jpg" alt=""><span>Salgados</span></div>
   <div class="cab" style="padding-bottom:10px"><p class="tag">Ideal para servir de entrada</p><h2 class="secao" style="font-size:34px">Mousse Salgada de Atum</h2></div>
   <div class="destaque">
     <img src="img/mousse-salgada-atum.jpg" alt="Mousse salgada de atum" style="height:300px">
@@ -315,13 +312,13 @@
 <!-- 11. ENCERRAMENTO -->
 <section class="pag verde">
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 40px 0;gap:16px">
-    <img src="../imgs/logo.png" alt="Amor Doce" style="height:64px;filter:brightness(0) invert(1);opacity:.95">
+    <img src="img/logo-branca-verde.jpg" alt="Amor Doce" style="height:64px">
     <p class="tag" style="margin-top:8px">Natal 2026</p>
     <h2 style="font-size:40px;line-height:1.1">Garanta o doce da sua <em style="color:var(--ouro-claro);font-weight:600">ceia de Natal</em></h2>
-    <p style="font-size:15px;color:rgba(255,255,255,.82);line-height:1.6">Cardápio válido para encomendas de Natal, com retirada no dia 24/12 e disponível até esgotar a nossa capacidade de produção.</p>
+    <p style="font-size:15px;color:#D7DEDC;line-height:1.6">Cardápio válido para encomendas de Natal, com retirada no dia 24/12 e disponível até esgotar a nossa capacidade de produção.</p>
     <a class="btn ouro grande" style="margin-top:8px" href="#" data-produto="">WAICON Fazer minha encomenda</a>
-    <div style="margin-top:22px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:16px 18px;font-size:14.5px;font-weight:700;line-height:1.5;width:100%">Para o Ano Novo teremos cardápio liberado para encomendas a partir do dia <span style="color:var(--ouro-claro)">06/12</span>.</div>
-    <div style="margin-top:6px;font-size:13.5px;line-height:1.7;color:rgba(255,255,255,.75)">
+    <div style="margin-top:22px;background:#31584A;border:1px solid #43675A;border-radius:16px;padding:16px 18px;font-size:14.5px;font-weight:700;line-height:1.5;width:100%">Para o Ano Novo teremos cardápio liberado para encomendas a partir do dia <span style="color:var(--ouro-claro)">06/12</span>.</div>
+    <div style="margin-top:6px;font-size:13.5px;line-height:1.7;color:#C7D2CE">
       Rua 3000, 445 · Centro · Balneário Camboriú - SC<br>
       WhatsApp (47) 99148-9325 · <a href="https://www.instagram.com/amordocebc/" style="color:var(--ouro-claro)">@amordocebc</a><br>
       <a href="https://mggastal.github.io/amordoce/natal/" style="color:var(--ouro-claro)">Ver o cardápio no site</a>
