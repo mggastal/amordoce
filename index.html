@@ -38,8 +38,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
    "url": "https://www.amordocebc.com.br/",
    "logo": "https://www.amordocebc.com.br/imgs/logo.png",
    "image": [
-    "https://www.amordocebc.com.br/natal/img/bolo-natalino.jpg",
-    "https://www.amordocebc.com.br/imgs/ano-todo/bolo-buttercream-personalizado-balneario-camboriu.jpg"
+    "https://www.amordocebc.com.br/natal/img/bolo-natalino.jpg"
    ],
    "telephone": "+55 47 99148-9325",
    "priceRange": "R$",
@@ -510,7 +509,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div>
       <p class="tag">Confeitaria artesanal · Balneário Camboriú</p>
       <h1>Menu de Natal <em>Amor Doce</em> 2026</h1>
-      <p class="lead">Bolo natalino, guirlanda de brownie, taças de sobremesa, docinhos e salgados para a sua ceia. Tudo feito à mão, para retirada no dia 24 de dezembro na nossa loja no Centro de Balneário Camboriú.</p>
+      <p class="lead">Bolo natalino, guirlanda de brownie, taças de sobremesa, docinhos e salgados para a sua ceia. Tudo feito à mão, para retirada no dia 24 de dezembro.</p>
       <div class="hero-botoes">
       <a href="#" class="btn btn-ouro btn-lg js-wa" data-produto="">
         <svg viewBox="0 0 24 24"><path d="M12.001 2C6.478 2 2 6.478 2 12.001c0 1.788.475 3.47 1.302 4.924L2 22l5.232-1.278A9.947 9.947 0 0012.001 22C17.523 22 22 17.522 22 12.001 22 6.478 17.523 2 12.001 2zm4.994 13.986c-.214.601-1.246 1.147-1.714 1.196-.424.044-.96.063-1.549-.097-.358-.1-.817-.234-1.401-.457-2.458-.961-4.059-3.405-4.184-3.563-.122-.158-.991-1.316-.991-2.509 0-1.194.625-1.782.846-2.026.222-.244.483-.304.644-.304.16 0 .322.001.464.008.148.007.348-.056.545.416.203.486.689 1.677.749 1.8.061.123.1.267.02.43-.08.162-.122.263-.241.405-.12.142-.252.317-.359.424-.12.119-.245.25-.105.49.14.242.622 1.027 1.335 1.664.917.817 1.69 1.069 1.932 1.19.242.12.383.1.524-.06.142-.162.609-.71.77-.954.162-.243.325-.202.547-.122.222.08 1.41.666 1.652.787.243.122.402.182.463.283.06.102.06.588-.154 1.189z"/></svg>
@@ -833,44 +832,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </a>
 </section>
 
-<!-- ENCOMENDAS O ANO TODO -->
-<section class="secao" id="encomendas">
-  <div class="wrap">
-    <div class="secao-cab revelar">
-      <p class="enfeite">✦</p>
-      <p class="tag">Encomendas o ano todo</p>
-      <h2>Bolos e doces sob encomenda em Balneário Camboriú</h2>
-      <p>Além do Natal, a Amor Doce faz bolos em buttercream, bentô cakes, brigadeiros gourmet e sobremesas sob encomenda para aniversários, chás e comemorações, com chocolate belga e ingredientes frescos.</p>
-    </div>
-    <div class="grade">
-      <article class="card revelar">
-        <div class="card-foto"><img src="imgs/ano-todo/bolo-buttercream-personalizado-balneario-camboriu.jpg" alt="Bolo em buttercream personalizado da Amor Doce em Balneário Camboriú" loading="lazy"></div>
-        <div class="card-corpo">
-          <h3>Bolos em buttercream</h3>
-          <p class="desc">Personalizados para cada ocasião: aniversário, chá de bebê, formatura e muito mais, com o desenho e a frase que você quiser.</p>
-          <a href="#" class="btn btn-vermelho js-wa" data-msg="Olá! Vi o site e quero encomendar um bolo em buttercream.">Encomendar bolo</a>
-        </div>
-      </article>
-      <article class="card revelar">
-        <div class="card-foto"><img src="imgs/ano-todo/kit-bento-cake-e-brigadeiros.jpg" alt="Kit bentô cake com brigadeiros gourmet" loading="lazy"></div>
-        <div class="card-corpo">
-          <h3>Kit Bolo + Brigadeiros</h3>
-          <p class="desc">O presente perfeito: bentô cake com brigadeiros gourmet na mesma caixa.</p>
-          <a href="#" class="btn btn-vermelho js-wa" data-msg="Olá! Vi o site e quero encomendar um kit bolo + brigadeiros.">Encomendar kit</a>
-        </div>
-      </article>
-      <article class="card revelar">
-        <div class="card-foto"><img src="imgs/ano-todo/torta-de-brigadeiro-com-morangos.jpg" alt="Torta de brigadeiro com morangos e docinhos" loading="lazy"></div>
-        <div class="card-corpo">
-          <h3>Brigadeiros, tortas e sobremesas</h3>
-          <p class="desc">Brigadeiros gourmet com chocolate belga, torta de brigadeiro com morangos, brownie e outros clássicos.</p>
-          <a href="#" class="btn btn-vermelho js-wa" data-msg="Olá! Vi o site e quero encomendar doces.">Encomendar doces</a>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
 <!-- LOJA -->
 <section class="loja">
   <div class="wrap loja-in">
@@ -939,9 +900,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const WA = "5547991489325";
   document.querySelectorAll(".js-wa").forEach(a => {
     const produto = a.dataset.produto;
-    const msg = a.dataset.msg || (produto
+    const msg = produto
       ? `Olá! Vi o Menu de Natal no site e quero encomendar ${produto}.`
-      : "Olá! Vi o Menu de Natal no site e quero fazer uma encomenda.");
+      : "Olá! Vi o Menu de Natal no site e quero fazer uma encomenda.";
     a.href = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
     a.target = "_blank";
     a.rel = "noopener";
