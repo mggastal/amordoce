@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
 Dashboard Standalone — Amor Doce
-Gera index.html completo (sem loader, sem data.json separado)
+Gera dashboard/index.html protegido por senha (HTML inteiro cifrado com AES-GCM).
+A página principal do site (index.html) é a LP de Natal.
 """
 
-import pandas as pd, json, re, hashlib, requests
+import pandas as pd, json, re, hashlib, requests, os, base64
 from datetime import date
 from pathlib import Path
 
@@ -13,7 +14,8 @@ from pathlib import Path
 # ══════════════════════════════════════════════════════
 SHEET_ID         = "1TF7K6YU5E0GExkF_K3dPGwBjF8xVLJEYy059lM8efOs"
 TEMPLATE_FILE    = "dashboard.html"
-OUTPUT_FILE      = "index.html"
+OUTPUT_FILE      = "dashboard/index.html"
+SENHA            = os.environ.get("DASH_SENHA", "001515")
 
 NOME_CLIENTE     = "Amor Doce"
 LOGO_LETRA       = "AD"
@@ -687,7 +689,7 @@ def main():
     print("="*60)
     print(f"Dashboard Standalone — {NOME_CLIENTE}")
     print("="*60)
-    img_dir=Path("thumbs"); img_dir.mkdir(exist_ok=True)
+    img_dir=Path("dashboard/thumbs"); img_dir.mkdir(exist_ok=True)
 
     print("\n[META ADS]")
     df_meta=load_meta()
@@ -766,9 +768,65 @@ def main():
     html=replace_js_const(html,"CPM_BOM",         CPM_BOM)
     html=replace_js_const(html,"CPM_MEDIO",       CPM_MEDIO)
 
-    Path(OUTPUT_FILE).write_text(html, encoding="utf-8")
+    Path(OUTPUT_FILE).parent.mkdir(exist_ok=True)
+    Path(OUTPUT_FILE).write_text(proteger(html), encoding="utf-8")
     print(f"  ✓ {OUTPUT_FILE} ({len(html)//1024}KB)")
     print("="*60)
+
+LOGIN_HTML = """<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Dashboard | Amor Doce</title>
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#FBF6F0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#3b2624}
+.box{background:#fff;border:1px solid #EFE3DA;border-radius:20px;padding:36px 32px;width:min(340px,88vw);text-align:center;box-shadow:0 14px 40px rgba(59,38,36,.08)}
+.box img{width:150px;height:auto;margin-bottom:14px}
+h1{font-size:17px;margin:0 0 18px;font-weight:700}
+input{width:100%;box-sizing:border-box;font-size:18px;padding:12px 14px;border:1.5px solid #E5D6CC;border-radius:12px;text-align:center;letter-spacing:4px;outline:none}
+input:focus{border-color:#E07A72}
+button{margin-top:14px;width:100%;padding:12px;border:0;border-radius:12px;background:#E07A72;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+.erro{color:#B23A33;font-size:14px;min-height:20px;margin-top:10px}
+label{display:flex;gap:8px;align-items:center;justify-content:center;font-size:13px;margin-top:12px;color:#7a6a5e}
+</style></head><body>
+<form class="box" id="f"><img src="logo.png" alt="Amor Doce"><h1>Dashboard de anúncios</h1>
+<input id="pw" type="password" inputmode="numeric" placeholder="senha" autocomplete="current-password" autofocus>
+<label><input type="checkbox" id="lembrar" checked style="width:auto"> Lembrar neste aparelho</label>
+<button type="submit">Entrar</button><div class="erro" id="erro"></div></form>
+<script>
+const P=/*__PAYLOAD__*/null;
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function abrir(senha){
+  const k0=await crypto.subtle.importKey("raw",new TextEncoder().encode(senha),"PBKDF2",false,["deriveKey"]);
+  const key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(P.salt),iterations:P.it,hash:"SHA-256"},k0,{name:"AES-GCM",length:256},false,["decrypt"]);
+  const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(P.iv)},key,b64(P.ct));
+  return new TextDecoder().decode(pt);
+}
+async function entrar(senha,lembrar){
+  let html; try{html=await abrir(senha);}catch(e){return false;}
+  try{ if(lembrar) localStorage.setItem("ad_dash_s",senha); }catch(e){}
+  document.open(); document.write(html); document.close(); return true;
+}
+document.getElementById("f").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const ok=await entrar(document.getElementById("pw").value,document.getElementById("lembrar").checked);
+  if(!ok) document.getElementById("erro").textContent="Senha incorreta";
+});
+(async()=>{let s=null;try{s=localStorage.getItem("ad_dash_s");}catch(e){}
+  if(s && !(await entrar(s,false))){try{localStorage.removeItem("ad_dash_s");}catch(e){}}})();
+</script></body></html>"""
+
+
+def proteger(html):
+    """Cifra o dashboard inteiro; a página publicada só mostra o login."""
+    from cryptography.hazmat.primitives import hashes
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+    from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+    salt, iv, it = os.urandom(16), os.urandom(12), 200_000
+    key = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt, iterations=it).derive(SENHA.encode())
+    ct = AESGCM(key).encrypt(iv, html.encode("utf-8"), None)
+    b = lambda x: base64.b64encode(x).decode()
+    return LOGIN_HTML.replace("/*__PAYLOAD__*/null", json.dumps({"salt": b(salt), "iv": b(iv), "ct": b(ct), "it": it}))
+
 
 if __name__ == "__main__":
     main()
